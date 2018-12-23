@@ -1,0 +1,11 @@
+[data-react-toolbox='snackbar'] {
+  max-width: 650px;
+
+  &[class*='theme--active'] {
+    transform: translateY(-33%);
+  }
+
+  span {
+    font-size: 14px;
+  }
+}

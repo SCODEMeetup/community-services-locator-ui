@@ -1,0 +1,37 @@
+/**
+* -------------------------------------------------------------------------------
+* Note that for these font styles do not match up with the standard Proxima Nova
+* fonts. A weight of 300 will show as regular. 400 will show as semi-bold. 600 will
+* show as bold. And 800 will show as extra-bold. 900 has been removed.
+*
+* --------------------------------------------------------------------------------
+**/
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('proxima_nova_reg-webfont.woff2') format('woff2'),
+    url('proxima_nova_reg-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('proximanova-sbold-webfont.woff2') format('woff2'),
+    url('proximanova-sbold-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('proxima_nova_bold-webfont.woff2') format('woff2'),
+    url('proxima_nova_bold-webfont.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('proximanova-xbold-webfont.woff2') format('woff2'),
+    url('proximanova-xbold-webfont.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}

@@ -1,0 +1,26 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ],
+    "react",
+    "stage-0"
+  ],
+  "env": {
+    "test": {
+      "presets": ["env"],
+      "plugins": [
+        [
+          "babel-plugin-webpack-alias",
+          {
+            "config": "./webpack.export.js"
+          }
+        ],
+        "rewire"
+      ]
+    }
+  }
+}

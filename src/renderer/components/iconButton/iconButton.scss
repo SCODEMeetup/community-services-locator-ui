@@ -1,0 +1,69 @@
+.-icon-button {
+  display: flex !important;
+  color: rgba($color: #000000, $alpha: 0.4) !important;
+  flex-shrink: 0;
+
+  &:hover {
+    color: black;
+  }
+
+  &[disabled] {
+    color: rgba($color: #000000, $alpha: 0.4);
+  }
+
+  &[disabled] svg {
+    opacity: 0.65;
+  }
+
+  &.purple {
+    color: white !important;
+
+    &:hover {
+      color: #e0e0e0 !important;
+    }
+
+    &[disabled] {
+      background-color: #e0e0e0 !important;
+    }
+  }
+
+  &.tiny {
+    height: to_rem(12px);
+    width: to_rem(12px);
+  }
+
+  &.xxsm {
+    height: to_rem(16px);
+    width: to_rem(16px);
+  }
+
+  &.xsm {
+    height: to_rem(18px);
+    width: to_rem(18px);
+  }
+
+  &.sm {
+    height: to_rem(20px);
+    width: to_rem(20px);
+  }
+
+  &.normal {
+    height: to_rem(24px);
+    width: to_rem(24px);
+  }
+
+  &.lg {
+    height: to_rem(32px);
+    width: to_rem(32px);
+  }
+
+  &.xlg {
+    height: to_rem(48px);
+    width: to_rem(48px);
+  }
+
+  &.xxlg {
+    height: to_rem(64px);
+    width: to_rem(64px);
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "redux-middleware/*": ["./src/renderer/redux/middleware/*"],
+      "redux-modules/*": ["./src/renderer/redux/modules/*"],
+      "root/*": ["./*"],
+      "scenes/*": ["./src/renderer/scenes/*"],
+      "src/*": ["./src/*"],
+      "style-core/*": ["./src/renderer/containers/app/style-core"],
+      "test/*": ["./test/*"],
+      "utils/*": ["./src/renderer/utils"]
+    }
+  },
+  "exclude": [
+    "configmap",
+    "coverage",
+    "node_modules",
+    "public",
+    "server",
+    "sharedInsights",
+    "tasks"
+  ]
+}

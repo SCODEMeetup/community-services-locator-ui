@@ -1,0 +1,70 @@
+span.-icon,
+[class*='theme--button'] > span.-icon {
+  margin: 0;
+  fill: currentColor;
+  transition: 0.2s ease;
+
+  svg {
+    height: inherit;
+  }
+
+  &.tiny {
+    height: 12px;
+    width: 12px;
+  }
+
+  &.xxsm {
+    height: 16px;
+    width: 16px;
+  }
+
+  &.xsm {
+    height: 18px;
+    width: 18px;
+  }
+
+  &.sm {
+    height: 20px;
+    width: 20px;
+  }
+
+  &.normal {
+    height: 24px;
+    width: 24px;
+  }
+
+  &.lg {
+    height: 32px;
+    width: 32px;
+  }
+
+  &.xlg {
+    height: 48px;
+    width: 48px;
+  }
+
+  &.xxlg {
+    height: 64px;
+    width: 64px;
+  }
+
+  &.rotate_90 {
+    transform: rotate(90deg);
+    transition: 0.2s ease;
+  }
+
+  &.rotate_-90 {
+    transform: rotate(-90deg);
+    transition: 0.2s ease;
+  }
+
+  &.rotate_180 {
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+  }
+
+  &.rotate_-180 {
+    transform: rotate(-180deg);
+    transition: 0.2s ease;
+  }
+}
