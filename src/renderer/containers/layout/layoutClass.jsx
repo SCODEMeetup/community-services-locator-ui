@@ -14,7 +14,7 @@ import {
   DISABLE_INNER_MAIN,
   NO_LOAD,
 } from 'redux-modules/layout/loading/constants';
-import { LOGIN, SHEET } from 'redux-modules/router/constants';
+import { HOME, SHEET } from 'redux-modules/router/constants';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 
@@ -28,7 +28,7 @@ import './layout.scss';
 
 class Layout extends React.Component {
   static defaultProps = {
-    route: { name: LOGIN, params: {} },
+    route: { name: HOME, params: {} },
   }
 
   static propTypes = {
@@ -115,7 +115,7 @@ class Layout extends React.Component {
         flexDirection="column"
         height="100vh"
       >
-        <AppBar showAppBar>Test</AppBar>
+        <AppBar showAppBar></AppBar>
         <ProgressBar
           className={concatClasses([
             this.bottomSheet ? '-bottom-sheet' : '',

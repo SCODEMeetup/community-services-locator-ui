@@ -13,13 +13,5 @@
       "utils/*": ["./src/renderer/utils"]
     }
   },
-  "exclude": [
-    "configmap",
-    "coverage",
-    "node_modules",
-    "public",
-    "server",
-    "sharedInsights",
-    "tasks"
-  ]
+  "exclude": ["coverage", "node_modules", "tasks"]
 }

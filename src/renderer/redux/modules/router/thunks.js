@@ -6,7 +6,7 @@ import { select, setstate } from 'redux-modules/general';
 
 import { lastMainRoute, lastMainRouteName } from 'redux-modules/router/paths';
 import { isBottomSheet } from 'redux-modules/router/utils';
-import { LOGIN, SHEET } from 'redux-modules/router/constants';
+import { HOME, SHEET } from 'redux-modules/router/constants';
 
 export function goTo(scene, params = {}) {
   return (dispatch, getState) =>
@@ -17,7 +17,7 @@ export function goTo(scene, params = {}) {
 
       if (isBottomSheet(scene)) {
         newParams.type = SHEET;
-        newParams.parent = select(lastMainRouteName, getState()) || LOGIN;
+        newParams.parent = select(lastMainRouteName, getState()) || HOME;
         resolve(dispatch(routerActions.navigateTo(scene, newParams)));
       } else {
         dispatch(setstate({ name: scene, params }, lastMainRoute));
@@ -30,7 +30,7 @@ export function returnFromRoute() {
   return (dispatch, getState) =>
     new Promise(resolve => {
       const lastMainRouteInfo = select(lastMainRoute, getState()) || {
-        name: LOGIN,
+        name: HOME,
       };
       resolve(dispatch(goTo(lastMainRouteInfo.name, lastMainRouteInfo.params)));
     });

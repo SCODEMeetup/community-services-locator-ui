@@ -1,12 +1,9 @@
 import {
-  LOGIN,
-  SEDOKU,
+  HOME,
 } from 'redux-modules/router/constants';
 
-import Login from './login';
-import Sedoku from './sedoku';
+import Home from './home';
 
 export default {
-  [LOGIN]: Login,
-  [SEDOKU]: Sedoku,
+  [HOME]: Home,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppBar } from 'react-toolbox/lib/app_bar';
+import Icon from 'components/icon';
 
 import { concatClasses } from 'redux-modules/general/utils';
 
@@ -27,7 +28,9 @@ export default class CustomAppBar extends React.Component {
       <AppBar
         className={concatClasses(classNames)}
         flat
-      >{this.props.children}</AppBar>
+      >
+        <Icon icon="logo" size="xxlg" />
+      </AppBar>
     );
   }
 }

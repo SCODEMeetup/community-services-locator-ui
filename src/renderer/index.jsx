@@ -4,13 +4,13 @@ import createRouter from 'router5';
 import browserPlugin from 'router5/plugins/browser';
 import routes from 'scenes/routes';
 
-import { LOGIN } from 'redux-modules/router/constants';
+import { HOME } from 'redux-modules/router/constants';
 
 import App from 'containers/app';
 
 import configureStore from './redux/configureStore';
 
-const router = createRouter(routes, { defaultRoute: LOGIN })
+const router = createRouter(routes, { defaultRoute: HOME })
   .usePlugin(browserPlugin());
 
 const store = configureStore(router);

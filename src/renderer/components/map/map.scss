@@ -1,0 +1,23 @@
+.search-box,
+.search-input {
+  position: absolute;
+  top: 13px;
+  display: flex;
+  width: 100%;
+}
+
+.search-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.autocomplete {
+  background-color: white;
+  padding: 0;
+}
+
+[class*='theme--hint'] {
+  color: #b7b6b6;
+  top: calc(calc(2 * 4px) + 1.5 * calc(0.8 * 4px));
+}
