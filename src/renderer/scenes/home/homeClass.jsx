@@ -1,7 +1,6 @@
 import React from 'react';
 import Flexbox from 'flexbox-react';
-import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
-import Map from 'components/map';
+import Map from 'containers/map';
 export default class Home extends React.Component {
   render() {
     return (

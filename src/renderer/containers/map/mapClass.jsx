@@ -6,8 +6,11 @@ import {
   GoogleMap,
   Marker,
   InfoWindow,
+  // InfoBox,
 } from "react-google-maps";
+import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import Icon from 'components/icon';
+import InfoContent from './infoBox';
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 // const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
@@ -96,12 +99,18 @@ const MapComponent = compose(
       <Marker
         position={{ lat: 39.9611755, lng: -82.99879420000002 }}
         onClick={props.onToggleOpen}
-        label="test"
       >
         {props.isOpen &&
-        <InfoWindow onCloseClick={props.onToggleOpen}>
-          <Icon icon="add" />
-        </InfoWindow>}
+        <InfoBox
+          options={{
+            boxClass: 'info-window',
+            boxStyle: { backgroundColor: `#2A2E43`},
+            closeBoxMargin: '0',
+          }}
+          onCloseClick={props.onToggleOpen}
+        >
+          <InfoContent />
+        </InfoBox>}
       </Marker>
     }
   </GoogleMap>
