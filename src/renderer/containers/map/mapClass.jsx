@@ -1,15 +1,16 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import { compose, withProps, lifecycle, withStateHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow,
-  // InfoBox,
 } from "react-google-maps";
 import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import Icon from 'components/icon';
+import IconButton from 'components/iconButton';
 import InfoContent from './infoBox';
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 // const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
@@ -60,10 +61,14 @@ const MapComponent = compose(
     defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}
   >
     <div className="search-box">
+      <IconButton 
+        className="filter-icon"
+        onClick={() => props.toggleDrawer()}
+        icon={<Icon icon="filters" size="sm" />}
+      />
       <Input
         className="autocomplete"
         direction="down"
-        selectedPosition="above"
         label=""
         hint="Search services"
         onChange={props.onPlacesChanged()}
@@ -116,7 +121,11 @@ const MapComponent = compose(
   </GoogleMap>
 )
 
-class MapClass extends React.PureComponent {
+class MapClass extends React.Component {
+  static propTypes = {
+    toggleDrawer: PropTypes.func.isRequired,
+  }
+
   state = {
     isMarkerShown: false,
   }
@@ -143,6 +152,7 @@ class MapClass extends React.PureComponent {
         className="map-component"
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        toggleDrawer={this.props.toggleDrawer}
       />
     )
   }

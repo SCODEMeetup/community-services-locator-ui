@@ -4,7 +4,6 @@ import Flexbox from 'flexbox-react';
 import { equals } from 'ramda';
 
 import { concatClasses } from 'redux-modules/general/utils';
-import { LEFT } from 'redux-modules/layout/drawer/constants';
 import AppBar from 'components/appBar';
 
 import {
@@ -17,10 +16,10 @@ import {
 import { HOME, SHEET } from 'redux-modules/router/constants';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
+import Drawer from 'react-toolbox/lib/drawer';
 
 import Toast from 'containers/toast';
 import ErrorBoundary from 'containers/errorBoundary';
-import AppDrawer from 'containers/appDrawer';
 
 import scenes from 'scenes';
 
@@ -33,10 +32,10 @@ class Layout extends React.Component {
 
   static propTypes = {
     loadingType: PropTypes.string.isRequired,
-    openDrawers: PropTypes.object.isRequired,
+    isOpen: PropTypes.bool.isRequired,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,
-    sidesByRoute: PropTypes.object.isRequired,
+    toggleDrawer: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -53,7 +52,6 @@ class Layout extends React.Component {
 
   componentWillUpdate(nextProps) {
     const route = nextProps.route;
-    console.log(nextProps);
     const isBottomSheet = route.params.type === SHEET;
 
     this.mainRoute = isBottomSheet ? this.mainRoute : route.name;
@@ -61,25 +59,19 @@ class Layout extends React.Component {
   }
 
   _getView(route, bottomSheet = false) {
-    const routeOpenDrawers = this.props.openDrawers[route] || [];
-    const routeDrawers = this.props.sidesByRoute[route] || [];
-
     const viewClassNames = [
       'main-container',
       equals(this.props.loadingType, DISABLE_INNER_MAIN) && this.props.showLoading ? '-disable' : '',
-      routeOpenDrawers.length === 2 ? '-two-drawers-open' : '',
-      routeOpenDrawers.length === 1 ? '-one-drawer-open' : '',
-      routeDrawers.length === 2 ? '-two-drawers' : '',
+      this.props.isOpen ? '-one-drawer-open' : '',
     ];
 
     return (
       <Flexbox width="100%" className={bottomSheet ? '-bottom-sheet' : ''}>
         <ErrorBoundary componentName="Left Drawer">
-          <AppDrawer
-            openDrawers={routeOpenDrawers}
-            route={route}
-            side={LEFT}
-          />
+          <Drawer active={this.props.isOpen} onOverlayClick={this.props.toggleDrawer}>
+            <h5>This is your Drawer.</h5>
+            <p>You can embed any content you want, for example a Menu.</p>
+          </Drawer>
         </ErrorBoundary>
         <Flexbox
           className="app-content"

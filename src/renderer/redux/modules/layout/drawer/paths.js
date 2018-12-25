@@ -1,11 +1,9 @@
 import { root } from '../paths';
 
 export const drawer = [...root, 'drawer'];
-export const openDrawers = [...drawer, 'openDrawers'];
-export const sidesByRoute = [...drawer, 'sidesByRoute'];
+export const isOpen = [...drawer, 'isOpen'];
 
 export default {
   drawer,
-  openDrawers,
-  sidesByRoute,
+  isOpen,
 };

@@ -1,23 +1,14 @@
-import { contains, equals, findIndex, insert, remove } from 'ramda';
 import { setstate, select } from 'redux-modules/general';
-import { openDrawers } from 'redux-modules/layout/drawer/paths';
-import { routeName } from 'redux-modules/router/paths';
+import { isOpen } from 'redux-modules/layout/drawer/paths';
 
-export function updateOpenDrawers(isOpen, side) {
+export function toggleDrawer() {
   return (dispatch, getState) => {
-    const scene = select(routeName, getState());
-    const drawerPath = [...openDrawers, scene];
-    const routeDrawers = select(drawerPath, getState()) || [];
+    const currentState = select(isOpen, getState());
 
-    if (isOpen && !contains(side, routeDrawers)) {
-      dispatch(setstate(insert(0, side, routeDrawers), drawerPath));
-    } else if (!isOpen && contains(side, routeDrawers)) {
-      const removeIndex = findIndex(equals(side))(routeDrawers);
-      dispatch(setstate(remove(removeIndex, 1, routeDrawers), drawerPath));
-    }
+    dispatch(setstate(!currentState, isOpen));
   };
 }
 
 export default {
-  updateOpenDrawers,
+  toggleDrawer,
 };

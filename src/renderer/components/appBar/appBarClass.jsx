@@ -29,7 +29,7 @@ export default class CustomAppBar extends React.Component {
         className={concatClasses(classNames)}
         flat
       >
-        <Icon icon="logo" size="xxlg" />
+        <Icon icon="logo" size="xlg" />
       </AppBar>
     );
   }

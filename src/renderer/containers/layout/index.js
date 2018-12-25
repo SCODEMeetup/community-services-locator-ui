@@ -3,20 +3,22 @@ import { connect } from 'react-redux';
 import { select } from 'redux-modules/general';
 
 import { loadingType, showLoading } from 'redux-modules/layout/loading/paths';
-import { openDrawers, sidesByRoute } from 'redux-modules/layout/drawer/paths';
+import { isOpen } from 'redux-modules/layout/drawer/paths';
+import { toggleDrawer } from 'redux-modules/layout/drawer/thunks';
 import { route } from 'redux-modules/router/paths';
 
 import Layout from './layoutClass';
 
 const mapStateToProps = state => ({
   loadingType: select(loadingType, state),
-  openDrawers: select(openDrawers, state),
+  isOpen: select(isOpen, state),
   route: select(route, state),
   showLoading: select(showLoading, state),
-  sidesByRoute: select(sidesByRoute, state),
 });
 
-const actions = {};
+const actions = {
+  toggleDrawer,
+};
 
 export default connect(
   mapStateToProps,

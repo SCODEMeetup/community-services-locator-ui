@@ -8,7 +8,7 @@ import {
   shouldNotBeEmpty,
 } from 'how-the-test-was-won';
 
-import { updateOpenDrawers } from 'redux-modules/layout/drawer/thunks';
+import { toggleDrawer } from 'redux-modules/layout/drawer/thunks';
 
 import { clone } from 'ramda';
 
@@ -16,7 +16,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('Layout/Drawer Module - Thunks (redux-modules/layout/drawer/thunks.js)', () => {
-  describe('updateOpenDrawers()', () => {
+  describe('toggleDrawer()', () => {
     const errorState = {
       layout: {
         drawer: { panelErrors: { workflow: { left: true } } },
@@ -27,7 +27,7 @@ describe('Layout/Drawer Module - Thunks (redux-modules/layout/drawer/thunks.js)'
 
     describe('when the drawer has errors', () => {
       const store = mockStore(clone(errorState));
-      store.dispatch(updateOpenDrawers(true, 'left'));
+      store.dispatch(toggleDrawer());
       it('should dispatch Redux state for showing a toast', () => {
         const actions = store.getActions();
         const payload = actions[0].payload;
