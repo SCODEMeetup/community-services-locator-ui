@@ -7,6 +7,7 @@ import {
 } from 'ramda';
 
 import Icon from 'components/icon';
+import Checkbox from 'react-toolbox/lib/checkbox';
 
 export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
@@ -29,6 +30,15 @@ export default class StandardLeftDrawer extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      isOpen: {},
+      isSelected: {}
+    }
+  }
+
   _renderSubCategories = (subItems) => {
     const result = [];
     const loop = (endpoint, key) => {
@@ -39,8 +49,15 @@ export default class StandardLeftDrawer extends React.Component {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <span>{key}</span>
-          <span>{endpoint}</span>
+          <Checkbox
+            checked={this.state.isSelected[key] || false}
+            label={key}
+            onChange={(value) => 
+            {
+              this.setState((prevState) =>
+                ({isSelected: {...prevState.isSelected, [key]: value }}))}
+            }
+          />
         </Flexbox>
       );
     };
@@ -63,11 +80,15 @@ export default class StandardLeftDrawer extends React.Component {
             alignItems="center"
             className="category"
             justifyContent="flex-start"
+            onClick={() => {
+              const currentStatus = this.state.isOpen[key] ||false;
+              this.setState(prevState => ({ isOpen: {...prevState.isOpen, [key]: !currentStatus}}));
+            }}
           >
             <Icon icon="add" />
             <h3>{key}</h3>
           </Flexbox>
-          { !isEmpty(items) && this._renderSubCategories(items) }
+          { !isEmpty(items) && this.state.isOpen[key] && this._renderSubCategories(items) }
         </Flexbox>
       );
     };
