@@ -13,13 +13,15 @@ import {
   DISABLE_INNER_MAIN,
   NO_LOAD,
 } from 'redux-modules/layout/loading/constants';
-import { HOME, SHEET } from 'redux-modules/router/constants';
+import { HOME } from 'redux-modules/router/constants';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Drawer from 'react-toolbox/lib/drawer';
+import DrawerContents from './standardLeftDrawer';
 
 import Toast from 'containers/toast';
 import ErrorBoundary from 'containers/errorBoundary';
+// import Toast from 'containers/toast';
 
 import scenes from 'scenes';
 
@@ -38,39 +40,17 @@ class Layout extends React.Component {
     toggleDrawer: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    const {
-      type,
-      parent,
-    } = props.route.params;
-    const routeName = props.route.name;
-
-    this.mainRoute = type === SHEET ? parent : routeName;
-    this.bottomSheet = type === SHEET ? routeName : '';
-  }
-
-  componentWillUpdate(nextProps) {
-    const route = nextProps.route;
-    const isBottomSheet = route.params.type === SHEET;
-
-    this.mainRoute = isBottomSheet ? this.mainRoute : route.name;
-    this.bottomSheet = isBottomSheet ? route.name : '';
-  }
-
-  _getView(route, bottomSheet = false) {
+  _getView() {
     const viewClassNames = [
       'main-container',
       equals(this.props.loadingType, DISABLE_INNER_MAIN) && this.props.showLoading ? '-disable' : '',
-      this.props.isOpen ? '-one-drawer-open' : '',
     ];
 
     return (
-      <Flexbox width="100%" className={bottomSheet ? '-bottom-sheet' : ''}>
+      <Flexbox width="100%" >
         <ErrorBoundary componentName="Left Drawer">
           <Drawer active={this.props.isOpen} onOverlayClick={this.props.toggleDrawer}>
-            <h5>This is your Drawer.</h5>
-            <p>You can embed any content you want, for example a Menu.</p>
+            <DrawerContents />
           </Drawer>
         </ErrorBoundary>
         <Flexbox
@@ -87,7 +67,7 @@ class Layout extends React.Component {
               element="main"
               flexGrow={1}
             >
-              {createElement(scenes[route])}
+              {createElement(scenes[this.props.route.name])}
             </Flexbox>
           </Flexbox>
         </Flexbox>
@@ -110,7 +90,6 @@ class Layout extends React.Component {
         <AppBar showAppBar></AppBar>
         <ProgressBar
           className={concatClasses([
-            this.bottomSheet ? '-bottom-sheet' : '',
             (
               equals(this.props.loadingType, DISABLE_INNER_MAIN) ||
               equals(this.props.loadingType, BASIC_INNER_MAIN)
@@ -128,8 +107,7 @@ class Layout extends React.Component {
           element="section"
           flexDirection="row"
         >
-          {this._getView(this.mainRoute)}
-          {this.bottomSheet && this._getView(this.bottomSheet, true)}
+          {this._getView()}
           <Toast />
         </Flexbox>
       </Flexbox>
