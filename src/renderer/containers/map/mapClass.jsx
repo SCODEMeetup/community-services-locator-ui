@@ -27,8 +27,7 @@ const MapComponent = compose(
     })
   }),
   withProps({
-    // googleMapURL: "https÷://maps.googleapis.com/maps/api/js?key=AIzaSyDIfSDFXyicZ5RF7BtqA408sXyi7sMQczY&v=3.exp&libraries=geometry,drawing,places",
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDIfSDFXyicZ5RF7BtqA408sXyi7sMQczY&callback=initMap&libraries=places",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key={apiKey}&callback=initMap&libraries=places",
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '98%', width: '100%' }} />,
     mapElement: <div style={{ height: '100%' }} />,
