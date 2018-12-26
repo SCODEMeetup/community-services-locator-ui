@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "heroku-postbuild": "webpack -p",
     "cleanup": "rm -rf build/* && rm -rf dist/* && rm -rf coverage/*",
     "build": "cross-env NODE_ENV=production webpack --env.prod --env.release --env.configenv=secure",
     "test": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000 src/**/*.spec.js",
