@@ -3,12 +3,7 @@ import { expect } from 'chai';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import {
-  shouldBeAnObject,
-  shouldBeFalse,
-  shouldBeTrue,
-  shouldNotBeEmpty,
-} from 'how-the-test-was-won';
+import { show } from 'redux-modules/layout/toast/paths';
 
 import { resetToast, showToast } from 'redux-modules/layout/toast/thunks';
 
@@ -37,11 +32,8 @@ describe('Layout/Toast Module - Thunks (redux-modules/layout/toast/thunks.js)', 
         })
       );
       const actions = store.getActions();
-      const payload = actions[0].payload;
-      shouldNotBeEmpty(payload);
-      shouldBeAnObject(payload);
-      shouldBeTrue(payload.show);
-      shouldBeAnObject(payload.undoData);
+      const { payload } = actions[0];
+      expect(payload.show).to.deep.equal(true);
       expect(payload.content).to.deep.equal('Toast content.');
       expect(payload.buttonText).to.deep.equal('Button Text.');
       expect(payload.buttonType).to.deep.equal('buttonType');
@@ -61,8 +53,9 @@ describe('Layout/Toast Module - Thunks (redux-modules/layout/toast/thunks.js)', 
       const store = mockStore(clone(initialState));
       store.dispatch(resetToast());
       const actions = store.getActions();
-      const payload = actions[0].payload;
-      shouldBeFalse(payload);
+      expect(actions).to.have.lengthOf(1);
+      expect(actions[0].payload).to.deep.equal(false);
+      expect(actions[0].meta).to.deep.equal(show);
     });
   });
 });

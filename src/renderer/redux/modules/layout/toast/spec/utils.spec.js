@@ -1,7 +1,5 @@
 import { expect } from 'chai';
 
-import { shouldBeAString } from 'how-the-test-was-won';
-
 import {
   bugToast,
   componentErrorToast,
@@ -11,11 +9,8 @@ describe('Layout/Toast Module - Utilities (redux-modules/layout/toast/utils.js)'
   describe('bugToast()', () => {
     it('should return an error message', () => {
       const expected =
-        'ERROR: Something went wrong in createWorkflow, please save and notify the Mimic team';
-
-      const result = bugToast('createWorkflow');
-
-      shouldBeAString(result);
+        'ERROR: Something went wrong in Map, please save and notify the Scos team';
+      const result = bugToast('Map');
       expect(result).to.deep.equal(expected);
     });
   });
@@ -23,11 +18,8 @@ describe('Layout/Toast Module - Utilities (redux-modules/layout/toast/utils.js)'
   describe('componentErrorToast()', () => {
     it('should return an error message', () => {
       const expected =
-        'COMPONENT ERROR: Something went wrong loading CodeEditor, please notify the Mimic team';
-
-      const result = componentErrorToast('CodeEditor');
-
-      shouldBeAString(result);
+        'COMPONENT ERROR: Something went wrong loading Drawer, please notify the Scos team';
+      const result = componentErrorToast('Drawer');
       expect(result).to.deep.equal(expected);
     });
   });

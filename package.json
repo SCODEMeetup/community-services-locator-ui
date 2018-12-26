@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
-    "start:docker": "docker-compose up --build",
     "cleanup": "rm -rf build/* && rm -rf dist/* && rm -rf coverage/*",
+    "heroku-postbuild": "webpack -p",
     "build": "cross-env NODE_ENV=production webpack --env.prod --env.release --env.configenv=secure",
     "test": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000 src/**/*.spec.js",
     "test-file": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "attr-accept": "^1.1.3",
+    "express": "^4.16.4",
     "flexbox-react": "^4.4.0",
     "hellojs": "^1.17.1",
     "humanize-plus": "^1.8.2",
