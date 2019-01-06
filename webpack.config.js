@@ -48,7 +48,7 @@ module.exports = ({ prod } = {}) => {
       port: DEFAULT_PORT,
       // proxy,
       publicPath: '/',
-      disableHostCheck: true,
+      // disableHostCheck: true,
     },
     entry: prod
       ? ['./src/renderer/index']

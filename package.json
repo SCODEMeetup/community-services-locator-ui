@@ -6,10 +6,10 @@
   "main": "build",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server",
-    "heroku-postbuild": "webpack -p",
+    "start": "cross-env NODE_ENV=production webpack-dev-server",
+    "heroku-postbuild": "webpack -p --env.prod",
     "cleanup": "rm -rf build/* && rm -rf dist/* && rm -rf coverage/*",
-    "build": "cross-env NODE_ENV=production webpack --env.prod --env.release --env.configenv=secure",
+    "build": "cross-env NODE_ENV=production webpack --env.prod",
     "test": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000 src/**/*.spec.js",
     "test-file": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000",
     "tests-coverage": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000 coverage/**/*.spec.js",
@@ -100,7 +100,7 @@
     "stylelint-scss": "^3.4.3",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.13"
+    "webpack-dev-server": "^3.1.14"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
