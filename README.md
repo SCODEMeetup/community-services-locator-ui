@@ -11,6 +11,9 @@ Building a UI for community locator services
 5. to start locally run the following command `npm start`
 6. navigate to [localhost:3000](http://localhost:3000/)
 
+# UI mockup
+1. [Services locator app mockup](https://xd.adobe.com/view/59760ef8-d849-4587-6a29-44f78a3fb151-2f47/)
+
 # Navigating the folder structure
 
 NOTE: All UI code is inside `src/renderer`.
