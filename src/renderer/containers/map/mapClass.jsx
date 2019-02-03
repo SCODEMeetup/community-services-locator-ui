@@ -1,40 +1,44 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { compose, withProps, lifecycle, withStateHandlers } from "recompose";
+import { compose, withProps, lifecycle, withStateHandlers } from 'recompose';
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-} from "react-google-maps";
-import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
+} from 'react-google-maps';
+import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 import Icon from 'components/icon';
 import IconButton from 'components/iconButton';
+import Input from 'react-toolbox/lib/input';
 import InfoContent from './infoBox';
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 // const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 // import Autocomplete from 'react-toolbox/lib/autocomplete';
-import Input from 'react-toolbox/lib/input';
 
 const MapComponent = compose(
-  withStateHandlers(() => ({
-    isOpen: false,
-  }), {
-    onToggleOpen: ({ isOpen }) => () => ({
-      isOpen: !isOpen,
-    })
-  }),
+  withStateHandlers(
+    () => ({
+      isOpen: false,
+    }),
+    {
+      onToggleOpen: ({ isOpen }) => () => ({
+        isOpen: !isOpen,
+      }),
+    }
+  ),
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key={apiKey}&callback=initMap&libraries=places",
+    googleMapURL:
+      'https://maps.googleapis.com/maps/api/js?key={api_key}&callback=initMap&libraries=places',
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '98%', width: '100%' }} />,
     mapElement: <div style={{ height: '100%' }} />,
   }),
   lifecycle({
     componentWillMount() {
-      const refs = {}
+      const refs = {};
 
       this.setState({
         places: [],
@@ -49,18 +53,17 @@ const MapComponent = compose(
           //   places,
           // });
         },
-      })
+      });
     },
   }),
   withScriptjs,
   withGoogleMap
-)((props, state) =>
+)((props, state) => (
   <GoogleMap
     defaultZoom={14}
-    defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}
-  >
+    defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}>
     <div className="search-box">
-      <IconButton 
+      <IconButton
         className="filter-icon"
         onClick={() => props.toggleDrawer()}
         icon={<Icon icon="filters" size="sm" />}
@@ -99,51 +102,50 @@ const MapComponent = compose(
         />
       </StandaloneSearchBox> */}
     </div>
-    {props.isMarkerShown &&
+    {props.isMarkerShown && (
       <Marker
         position={{ lat: 39.9611755, lng: -82.99879420000002 }}
-        onClick={props.onToggleOpen}
-      >
-        {props.isOpen &&
-        <InfoBox
-          options={{
-            boxClass: 'info-window',
-            boxStyle: { backgroundColor: `#2A2E43`},
-            closeBoxMargin: '0',
-          }}
-          onCloseClick={props.onToggleOpen}
-        >
-          <InfoContent />
-        </InfoBox>}
+        onClick={props.onToggleOpen}>
+        {props.isOpen && (
+          <InfoBox
+            options={{
+              boxClass: 'info-window',
+              boxStyle: { backgroundColor: `#2A2E43` },
+              closeBoxMargin: '0',
+            }}
+            onCloseClick={props.onToggleOpen}>
+            <InfoContent />
+          </InfoBox>
+        )}
       </Marker>
-    }
+    )}
   </GoogleMap>
-)
+));
 
 class MapClass extends React.Component {
   static propTypes = {
     toggleDrawer: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     isMarkerShown: false,
-  }
+  };
 
   componentDidMount() {
-    this.delayedShowMarker()
+    this.delayedShowMarker();
   }
 
   delayedShowMarker = () => {
     setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3000)
-  }
+      this.setState({ isMarkerShown: true });
+    }, 3000);
+  };
 
-  handleMarkerClick = (item) => {
+  handleMarkerClick = item => {
     this.setState({ isMarkerShown: false });
     this.delayedShowMarker();
     console.log('click', item);
-  }
+  };
 
   render() {
     return (
@@ -153,7 +155,7 @@ class MapClass extends React.Component {
         onMarkerClick={this.handleMarkerClick}
         toggleDrawer={this.props.toggleDrawer}
       />
-    )
+    );
   }
 }
 
