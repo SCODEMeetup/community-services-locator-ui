@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
+const DEFAULT_PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const PROTOCOL = process.env.HTTPS === 'true' ? 'https' : 'http';
 
@@ -29,14 +29,6 @@ module.exports = ({ prod } = {}) => {
     'postcss-loader',
   ];
 
-  // const proxy = {
-  //   '/manager/api': {
-  //     changeOrigin: true,
-  //     secure: true,
-  //     target: 'https://google.com',
-  //   },
-  // };
-
   return {
     bail: prod,
     devServer: {
@@ -46,9 +38,7 @@ module.exports = ({ prod } = {}) => {
       hot: true,
       https: PROTOCOL === 'https',
       port: DEFAULT_PORT,
-      // proxy,
       publicPath: '/',
-      // disableHostCheck: true,
     },
     entry: prod
       ? ['./src/renderer/index']

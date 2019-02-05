@@ -6,7 +6,8 @@
   "main": "build",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production webpack-dev-server",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "start": "node server.js",
     "heroku-postbuild": "webpack -p --env.prod",
     "cleanup": "rm -rf build/* && rm -rf dist/* && rm -rf coverage/*",
     "build": "cross-env NODE_ENV=production webpack --env.prod",
