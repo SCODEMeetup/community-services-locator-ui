@@ -30,8 +30,9 @@ const MapComponent = compose(
     }
   ),
   withProps({
-    googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?key={api_key}&callback=initMap&libraries=places',
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
+      process.env.MAP_KEY
+    }&callback=initMap&libraries=places`,
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '98%', width: '100%' }} />,
     mapElement: <div style={{ height: '100%' }} />,

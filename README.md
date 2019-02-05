@@ -8,10 +8,11 @@ Building a UI for community locator services
 2. Install node 10
 3. clone the code base
 4. run the following command `npm i` - installs all node dependencies
-5. to start locally run the following command `npm start`
+5. to start locally run the following command `npm run dev`
 6. navigate to [localhost:3000](http://localhost:3000/)
 
 # UI mockup
+
 1. [Services locator app mockup](https://xd.adobe.com/view/59760ef8-d849-4587-6a29-44f78a3fb151-2f47/)
 
 # Navigating the folder structure
@@ -65,3 +66,7 @@ const grabValue = select(pathToList, store);
     }
   }
 ```
+
+## Deploying to Heroku (can only be done by mihiramin89 currently)
+
+run the following command `git push heroku master` (after logging into Heroku)
