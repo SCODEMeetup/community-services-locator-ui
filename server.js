@@ -10,6 +10,15 @@ const app = express();
 // the __dirname is the current directory from where the script is running
 app.use(express.static(distPath));
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
+
 // serve the health check end-point
 app.get('/health', (req, res) => {
   res.json({
@@ -20,7 +29,6 @@ app.get('/health', (req, res) => {
 
 // send the user to index html page inspite of the url
 app.get('*', (req, res) => {
-  console.log(path.resolve(__dirname, 'dist/index.html'));
   res.sendFile(`${distPath}/index.html`);
 });
 

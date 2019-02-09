@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Flexbox from 'flexbox-react';
 import {
-  isEmpty,
-  forEachObjIndexed,
+  filter,
 } from 'ramda';
 
 import Icon from 'components/icon';
@@ -11,24 +10,10 @@ import Checkbox from 'react-toolbox/lib/checkbox';
 
 export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
-    services: PropTypes.object
+    children: PropTypes.array.isRequired,
+    getServiceChildren: PropTypes.func.isRequired,
+    menu: PropTypes.array.isRequired,
   };
-
-  static defaultProps = {
-    services: {
-      food: {
-        foodBank: 'endpoint-url',
-        soupKitchen: 'endpoint-url',
-        sackLunches: 'endpoint-url',
-      },
-      transportation: {
-        COTA: 'endpoint-url',
-      },
-      'Housing/Shelter': {
-        shelter: 'endpoint-url',
-      }
-    }
-  }
 
   constructor(props) {
     super(props);
@@ -39,38 +24,40 @@ export default class StandardLeftDrawer extends React.Component {
     }
   }
 
-  _renderSubCategories = (subItems) => {
+  _renderSubCategories = (taxId) => {
     const result = [];
-    const loop = (endpoint, key) => {
+    const filteredItems = filter(item => item.TAXON_ID_SUBCAT_OF == taxId, this.props.children);
+
+    filteredItems.forEach((child) => {
       result.push(
         <Flexbox
-          key={`subItem-${key}`}
+          key={`subItem-${child.TAXON_ID}`}
           className={`subItems`}
           justifyContent="flex-start"
           alignItems="center"
         >
           <Checkbox
-            checked={this.state.isSelected[key] || false}
-            label={key}
+            checked={this.state.isSelected[child.TAXON_ID] || false}
+            label={child.DESCRIPTION}
             onChange={(value) => 
             {
               this.setState((prevState) =>
-                ({isSelected: {...prevState.isSelected, [key]: value }}))}
+                ({isSelected: {...prevState.isSelected, [child.TAXON_ID]: value }}))}
             }
           />
         </Flexbox>
       );
-    };
-    forEachObjIndexed(loop, subItems);
+    });
     return result;
   }
 
   _renderCategories = () => {
     const categories = [];
-    const loop = (items, key) => {
+    this.props.menu.forEach((item) => {
+      const isOpen = this.state.isOpen[item.TAXON_ID];
       categories.push(
         <Flexbox
-          key={`service-${key}`}
+          key={`service-${item.TAXON_ID}`}
           className="cat-row"
           flexDirection="column"
           alignItems="flex-start"
@@ -81,24 +68,26 @@ export default class StandardLeftDrawer extends React.Component {
             className="category"
             justifyContent="flex-start"
             onClick={() => {
-              const currentStatus = this.state.isOpen[key] ||false;
-              this.setState(prevState => ({ isOpen: {...prevState.isOpen, [key]: !currentStatus}}));
+              const currentlyOpen = this.state.isOpen[item.TAXON_ID] ||false;
+              if(!currentlyOpen) {
+                this.props.getServiceChildren(item.TAXON_ID);
+              }
+              this.setState(prevState => ({ isOpen: {...prevState.isOpen, [item.TAXON_ID]: !currentlyOpen}}));
             }}
           >
-            <Icon icon="add" />
-            <h3>{key}</h3>
+            <Icon icon={isOpen ? 'arrow_down' : 'arrow_right'} size="xsm" />
+            <h3>{item.DESCRIPTION}</h3>
           </Flexbox>
-          { !isEmpty(items) && this.state.isOpen[key] && this._renderSubCategories(items) }
+          { isOpen && this._renderSubCategories(item.TAXON_ID) }
         </Flexbox>
       );
-    };
-    forEachObjIndexed(loop, this.props.services);
+    });
     return categories;
   }
 
   render() {
     return (
-      <Flexbox flexDirection="column">
+      <Flexbox className="left-drawer" flexDirection="column">
         {this._renderCategories()}
       </Flexbox>
     );

@@ -33,8 +33,11 @@ class Layout extends React.Component {
   }
 
   static propTypes = {
+    children: PropTypes.array.isRequired,
+    getServiceChildren: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
+    menu: PropTypes.array.isRequired,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
@@ -50,7 +53,11 @@ class Layout extends React.Component {
       <Flexbox width="100%" >
         <ErrorBoundary componentName="Left Drawer">
           <Drawer active={this.props.isOpen} onOverlayClick={this.props.toggleDrawer}>
-            <DrawerContents />
+            <DrawerContents
+              children={this.props.children}
+              getServiceChildren={(taxId) => this.props.getServiceChildren(taxId)}
+              menu={this.props.menu}
+            />
           </Drawer>
         </ErrorBoundary>
         <Flexbox
