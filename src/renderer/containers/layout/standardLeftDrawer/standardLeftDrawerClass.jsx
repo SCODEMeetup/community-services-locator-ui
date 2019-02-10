@@ -12,6 +12,7 @@ export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
     children: PropTypes.array.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
+    getServiceLocations: PropTypes.func.isRequired,
     menu: PropTypes.array.isRequired,
   };
 
@@ -41,6 +42,8 @@ export default class StandardLeftDrawer extends React.Component {
             label={child.DESCRIPTION}
             onChange={(value) => 
             {
+              console.log('grabbing agencies');
+              this.props.getServiceLocations(child.TAXON_ID, value);
               this.setState((prevState) =>
                 ({isSelected: {...prevState.isSelected, [child.TAXON_ID]: value }}))}
             }

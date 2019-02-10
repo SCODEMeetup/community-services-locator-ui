@@ -5,7 +5,10 @@ import { select } from 'redux-modules/general';
 import { loadingType, showLoading } from 'redux-modules/layout/loading/paths';
 import { isOpen } from 'redux-modules/layout/drawer/paths';
 import { children, menu } from 'redux-modules/services/paths';
-import { getServiceChildren } from 'redux-modules/services/thunks';
+import {
+  getServiceChildren,
+  getServiceLocations,
+} from 'redux-modules/services/thunks';
 
 import { toggleDrawer } from 'redux-modules/layout/drawer/thunks';
 import { route } from 'redux-modules/router/paths';
@@ -23,6 +26,7 @@ const mapStateToProps = state => ({
 
 const actions = {
   getServiceChildren,
+  getServiceLocations,
   toggleDrawer,
 };
 

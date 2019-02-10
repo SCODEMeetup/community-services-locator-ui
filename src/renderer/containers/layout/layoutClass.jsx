@@ -35,6 +35,7 @@ class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.array.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
+    getServiceLocations: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
     menu: PropTypes.array.isRequired,
@@ -55,7 +56,8 @@ class Layout extends React.Component {
           <Drawer active={this.props.isOpen} onOverlayClick={this.props.toggleDrawer}>
             <DrawerContents
               children={this.props.children}
-              getServiceChildren={(taxId) => this.props.getServiceChildren(taxId)}
+              getServiceChildren={taxId => this.props.getServiceChildren(taxId)}
+              getServiceLocations={(taxId, showMarkers) => this.props.getServiceLocations(taxId, showMarkers)}
               menu={this.props.menu}
             />
           </Drawer>
