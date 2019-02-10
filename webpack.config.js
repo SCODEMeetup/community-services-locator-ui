@@ -46,14 +46,6 @@ module.exports = ({ prod } = {}) => {
     mode: prod ? 'production' : 'development',
     module: {
       rules: [
-        //   {
-        //     enforce: 'pre',
-        //     test: /\.jsx|js($|\?)/,
-        //     use: 'eslint-loader',
-        //     include: [
-        //       path.resolve(__dirname, 'src'),
-        //     ],
-        //   },
         {
           test: /\.jsx|js($|\?)/,
           use: 'babel-loader',
@@ -75,10 +67,6 @@ module.exports = ({ prod } = {}) => {
         },
         {
           test: /\.css($|\?)/,
-          // use: extractCSS.extract({
-          //   fallback: 'style-loader',
-          //   use: cssLoaders,
-          // }),
           use: ['style-loader', ...cssLoaders],
         },
         {
@@ -134,6 +122,7 @@ module.exports = ({ prod } = {}) => {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+          MAP_KEY: JSON.stringify(process.env.MAP_KEY),
         },
       }),
       new HtmlWebpackPlugin({
