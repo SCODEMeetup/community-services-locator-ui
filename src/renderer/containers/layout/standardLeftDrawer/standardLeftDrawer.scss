@@ -1,3 +1,18 @@
-.subItems {
-  padding-left: 15%;
+.left-drawer {
+  font-size: 0.9rem;
+  .category {
+    font-size: 0.7rem;
+  }
+  .subItems {
+    padding-left: 15%;
+    margin-top: 5%;
+    [data-react-toolbox='checkbox'] {
+      [data-react-toolbox='label'] {
+        font-size: 0.7rem;
+        width: 90%;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+      }
+    }
+  }
 }

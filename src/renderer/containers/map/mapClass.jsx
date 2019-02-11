@@ -126,6 +126,7 @@ const MapComponent = compose(
 class MapClass extends React.Component {
   static propTypes = {
     toggleDrawer: PropTypes.func.isRequired,
+    getServices: PropTypes.func.isRequired,
   };
 
   state = {
@@ -154,7 +155,10 @@ class MapClass extends React.Component {
         className="map-component"
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
-        toggleDrawer={this.props.toggleDrawer}
+        toggleDrawer={() => {
+          this.props.getServices();
+          this.props.toggleDrawer();
+        }}
       />
     );
   }
