@@ -67,6 +67,6 @@ const grabValue = select(pathToList, store);
   }
 ```
 
-## Deploying to Heroku (can only be done by mihiramin89 currently)
+## Deploying to Heroku
 
 run the following command `git push heroku master` (after logging into Heroku)
