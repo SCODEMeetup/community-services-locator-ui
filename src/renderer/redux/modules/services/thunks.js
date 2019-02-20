@@ -8,7 +8,7 @@ export function getServices(taxId = 10) {
   return dispatch => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v1/taxonomy/${taxId}/children`,
+        `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`,
         GET,
         {
           successToast: 'successfully grabbed services',
@@ -28,7 +28,7 @@ export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v1/taxonomy/${taxId}/children`,
+        `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`,
         GET,
         {
           successToast: 'successfully grabbed services',
@@ -37,11 +37,8 @@ export function getServiceChildren(taxId) {
       )
     )
       .then(response => {
-        const currentState = pluck('TAXON_ID', select(children, getState()));
-        const data = filter(
-          item => !includes(item.TAXON_ID, currentState),
-          response
-        );
+        const currentState = pluck('id', select(children, getState()));
+        const data = filter(item => !includes(item.id, currentState), response);
         const currentChildren = [...select(children, getState()), ...data];
 
         dispatch(setstate(currentChildren, children));
@@ -51,24 +48,24 @@ export function getServiceChildren(taxId) {
   };
 }
 
-export function getServiceLocations(taxId, showMarkers) {
+export function getSpecificLocations(taxId, agencyId, showMarkers) {
   return (dispatch, getState) => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v1/agency?taxonomyId=${taxId}`,
+        `https://mofb-api.appspot.com/api/v2/location?taxonomyId=${taxId}&agencyId=${agencyId.toString()}`,
         GET,
         {
-          successToast: 'successfully grabbed agencies',
-          errorToast: 'failed to fetch agencies',
+          successToast: 'successfully grabbed locations',
+          errorToast: 'failed to fetch locations',
         }
       )
     )
       .then(response => {
         let currentMarkers = [];
         if (showMarkers) {
-          const currentState = pluck('TAXON_ID', select(markers, getState()));
+          const currentState = pluck('id', select(markers, getState()));
           const data = filter(
-            item => !includes(item.TAXON_ID, currentState),
+            item => !includes(item.id, currentState),
             response
           );
           currentMarkers = [...select(markers, getState()), ...data];
@@ -83,8 +80,30 @@ export function getServiceLocations(taxId, showMarkers) {
   };
 }
 
+export function getServiceLocations(taxId, showMarkers) {
+  return dispatch => {
+    dispatch(
+      requestUrl(
+        `https://mofb-api.appspot.com/api/v2/agency?taxonomyId=${taxId}`,
+        GET,
+        {
+          successToast: 'successfully grabbed locations',
+          errorToast: 'failed to fetch locations',
+        }
+      )
+    )
+      .then(response => {
+        const agencyIds = pluck('id', response);
+        dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
+        return;
+      })
+      .catch(console.error);
+  };
+}
+
 export default {
   getServiceChildren,
   getServiceLocations,
+  getSpecificLocations,
   getServices,
 };
