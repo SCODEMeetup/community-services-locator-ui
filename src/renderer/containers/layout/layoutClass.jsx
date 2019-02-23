@@ -33,7 +33,7 @@ class Layout extends React.Component {
   }
 
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.object.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
