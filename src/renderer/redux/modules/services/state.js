@@ -1,5 +1,5 @@
 export default {
-  children: [],
+  children: {},
   markers: [],
   menu: [],
 };

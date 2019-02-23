@@ -26,20 +26,21 @@ export function getServices(taxId = 10) {
 
 export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
+    let uri = `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`;
+    if (taxId === '11') {
+      uri = 'https://mofb-api.appspot.com/api/v2/taxonomy/food';
+    }
     dispatch(
-      requestUrl(
-        `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`,
-        GET,
-        {
-          successToast: 'successfully grabbed services',
-          errorToast: 'failed to fetch services',
-        }
-      )
+      requestUrl(uri, GET, {
+        successToast: 'successfully grabbed services',
+        errorToast: 'failed to fetch services',
+      })
     )
       .then(response => {
-        const currentState = pluck('id', select(children, getState()));
-        const data = filter(item => !includes(item.id, currentState), response);
-        const currentChildren = [...select(children, getState()), ...data];
+        const currentChildren = {
+          ...select(children, getState()),
+          [taxId]: response,
+        };
 
         dispatch(setstate(currentChildren, children));
         return;

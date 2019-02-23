@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Flexbox from 'flexbox-react';
-import {
-  filter,
-} from 'ramda';
 
 import Icon from 'components/icon';
 import Checkbox from 'react-toolbox/lib/checkbox';
 
 export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.object.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
     menu: PropTypes.array.isRequired,
@@ -27,7 +24,7 @@ export default class StandardLeftDrawer extends React.Component {
 
   _renderSubCategories = (taxId) => {
     const result = [];
-    const filteredItems = filter(item => item.parentCategoryId == taxId, this.props.children);
+    const filteredItems = this.props.children[taxId] || [];
 
     filteredItems.forEach((child) => {
       result.push(
