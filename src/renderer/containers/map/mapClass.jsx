@@ -13,19 +13,15 @@ import Icon from 'components/icon';
 import IconButton from 'components/iconButton';
 import Input from 'react-toolbox/lib/input';
 import InfoContent from './infoBox';
-// const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
-// const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
-
-// import Autocomplete from 'react-toolbox/lib/autocomplete';
 
 const MapComponent = compose(
   withStateHandlers(
     () => ({
-      isOpen: false,
+      isOpen: null,
     }),
     {
-      onToggleOpen: ({ isOpen }) => () => ({
-        isOpen: !isOpen,
+      onToggleOpen: ({ isOpen }) => id => ({
+        isOpen: id,
       }),
     }
   ),
@@ -48,11 +44,6 @@ const MapComponent = compose(
         },
         onPlacesChanged: () => {
           console.log('places changing');
-          // const places = refs.searchBox.getPlaces();
-
-          // this.setState({
-          //   places,
-          // });
         },
       });
     },
@@ -75,58 +66,43 @@ const MapComponent = compose(
         label=""
         hint="Search services"
         onChange={props.onPlacesChanged()}
-        // source={['Test1','Columbus', 'Chx']}
         value={state.places}
       />
-      {/* <StandaloneSearchBox
-        ref={props.onSearchBoxMounted}
-        bounds={props.bounds}
-        onPlacesChanged={props.onPlacesChanged}
-        className="search-box"
-      >
-        <input
-          className="search-input"
-          type="text"
-          placeholder="Search services"
-          style={{
-            boxSizing: `border-box`,
-            border: `1px solid transparent`,
-            width: `240px`,
-            height: `32px`,
-            padding: `0 12px`,
-            borderRadius: `3px`,
-            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-            fontSize: `14px`,
-            outline: `none`,
-            textOverflow: `ellipses`,
-          }}
-        />
-      </StandaloneSearchBox> */}
     </div>
-    {props.isMarkerShown && (
-      <Marker
-        position={{ lat: 39.9611755, lng: -82.99879420000002 }}
-        onClick={props.onToggleOpen}>
-        {props.isOpen && (
-          <InfoBox
-            options={{
-              boxClass: 'info-window',
-              boxStyle: { backgroundColor: `#2A2E43` },
-              closeBoxMargin: '0',
-            }}
-            onCloseClick={props.onToggleOpen}>
-            <InfoContent />
-          </InfoBox>
-        )}
-      </Marker>
-    )}
+    {props.isMarkerShown &&
+      props.markers.map(marker => (
+        <Marker
+          position={{
+            lat: parseFloat(marker.lat),
+            lng: parseFloat(marker.long),
+          }}
+          onClick={() => props.onToggleOpen(marker.id)}
+          key={marker.id}>
+          {props.isOpen === marker.id && (
+            <InfoBox
+              options={{
+                boxClass: 'info-window',
+                boxStyle: { backgroundColor: `#2A2E43` },
+                closeBoxMargin: '0',
+              }}
+              onCloseClick={() => props.onToggleOpen(null)}>
+              <InfoContent details={marker} />
+            </InfoBox>
+          )}
+        </Marker>
+      ))}
   </GoogleMap>
 ));
 
 class MapClass extends React.Component {
   static propTypes = {
+    markers: PropTypes.array,
     toggleDrawer: PropTypes.func.isRequired,
     getServices: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    markers: [],
   };
 
   state = {
@@ -143,18 +119,12 @@ class MapClass extends React.Component {
     }, 3000);
   };
 
-  handleMarkerClick = item => {
-    this.setState({ isMarkerShown: false });
-    this.delayedShowMarker();
-    console.log('click', item);
-  };
-
   render() {
     return (
       <MapComponent
         className="map-component"
         isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
+        markers={this.props.markers}
         toggleDrawer={() => {
           this.props.getServices();
           this.props.toggleDrawer();

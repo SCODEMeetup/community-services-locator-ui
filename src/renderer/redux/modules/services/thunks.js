@@ -1,5 +1,5 @@
 import { select, setstate } from 'redux-modules/general';
-import { includes, filter, pluck, without } from 'ramda';
+import { includes, filter, pluck, without, uniqBy } from 'ramda';
 import { children, markers, menu } from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
@@ -18,7 +18,6 @@ export function getServices(taxId = 10) {
     )
       .then(response => {
         dispatch(setstate(response, menu));
-        return;
       })
       .catch(console.error);
   };
@@ -43,7 +42,6 @@ export function getServiceChildren(taxId) {
         };
 
         dispatch(setstate(currentChildren, children));
-        return;
       })
       .catch(console.error);
   };
@@ -74,8 +72,7 @@ export function getSpecificLocations(taxId, agencyId, showMarkers) {
           currentMarkers = without(response, select(markers, getState()));
         }
 
-        dispatch(setstate(currentMarkers, markers));
-        return;
+        dispatch(setstate(uniqBy(item => item.id, currentMarkers), markers));
       })
       .catch(console.error);
   };
@@ -96,7 +93,6 @@ export function getServiceLocations(taxId, showMarkers) {
       .then(response => {
         const agencyIds = pluck('id', response);
         dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
-        return;
       })
       .catch(console.error);
   };
