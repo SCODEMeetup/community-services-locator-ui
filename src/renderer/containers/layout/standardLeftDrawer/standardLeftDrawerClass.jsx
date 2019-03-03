@@ -15,45 +15,43 @@ export default class StandardLeftDrawer extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       isOpen: {},
-      isSelected: {}
-    }
+      isSelected: {},
+    };
   }
 
-  _renderSubCategories = (taxId) => {
+  _renderSubCategories = taxId => {
     const result = [];
     const filteredItems = this.props.children[taxId] || [];
 
-    filteredItems.forEach((child) => {
+    filteredItems.forEach(child => {
       result.push(
         <Flexbox
           key={`subItem-${child.id}`}
-          className={`subItems`}
+          className="subItems"
           justifyContent="flex-start"
-          alignItems="center"
-        >
+          alignItems="center">
           <Checkbox
             checked={this.state.isSelected[child.id] || false}
             label={child.description}
-            onChange={(value) => 
-            {
-              console.log('grabbing agencies');
+            onChange={value => {
               this.props.getServiceLocations(child.id, value);
-              this.setState((prevState) =>
-                ({isSelected: {...prevState.isSelected, [child.id]: value }}))}
-            }
+              this.setState(prevState => ({
+                isSelected: { ...prevState.isSelected, [child.id]: value },
+              }));
+            }}
           />
         </Flexbox>
       );
     });
     return result;
-  }
+  };
 
   _renderCategories = () => {
     const categories = [];
-    this.props.menu.forEach((item) => {
+    this.props.menu.forEach(item => {
       const isOpen = this.state.isOpen[item.id];
       categories.push(
         <Flexbox
@@ -61,29 +59,29 @@ export default class StandardLeftDrawer extends React.Component {
           className="cat-row"
           flexDirection="column"
           alignItems="flex-start"
-          justifyContent="center"
-        >
+          justifyContent="center">
           <Flexbox
             alignItems="center"
             className="category"
             justifyContent="flex-start"
             onClick={() => {
-              const currentlyOpen = this.state.isOpen[item.id] ||false;
-              if(!currentlyOpen) {
+              const currentlyOpen = this.state.isOpen[item.id] || false;
+              if (!currentlyOpen) {
                 this.props.getServiceChildren(item.id);
               }
-              this.setState(prevState => ({ isOpen: {...prevState.isOpen, [item.id]: !currentlyOpen}}));
-            }}
-          >
+              this.setState(prevState => ({
+                isOpen: { ...prevState.isOpen, [item.id]: !currentlyOpen },
+              }));
+            }}>
             <Icon icon={isOpen ? 'arrow_down' : 'arrow_right'} size="xsm" />
             <h3>{item.description}</h3>
           </Flexbox>
-          { isOpen && this._renderSubCategories(item.id) }
+          {isOpen && this._renderSubCategories(item.id)}
         </Flexbox>
       );
     });
     return categories;
-  }
+  };
 
   render() {
     return (
