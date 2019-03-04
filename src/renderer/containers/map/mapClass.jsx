@@ -43,6 +43,10 @@ const MapComponent = compose(
 
       this.setState({
         places: [],
+        // currentLatLng: {
+        //   lat: 39.9611755,
+        //   lng: -82.99879420000002,
+        // },
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
@@ -62,7 +66,10 @@ const MapComponent = compose(
 )((props, state) => (
   <GoogleMap
     defaultZoom={14}
-    defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}>
+    defaultCenter={{
+      lat: props.currentLocation.lat,
+      lng: props.currentLocation.lng,
+    }}>
     <div className="search-box">
       <IconButton
         className="filter-icon"
@@ -105,7 +112,10 @@ const MapComponent = compose(
     </div>
     {props.isMarkerShown && (
       <Marker
-        position={{ lat: 39.9611755, lng: -82.99879420000002 }}
+        position={{
+          lat: props.currentLocation.lat,
+          lng: props.currentLocation.lng,
+        }}
         onClick={props.onToggleOpen}>
         {props.isOpen && (
           <InfoBox
@@ -131,16 +141,38 @@ class MapClass extends React.Component {
 
   state = {
     isMarkerShown: false,
+    currentLatLng: {
+      lat: 39.9611755,
+      lng: -82.99879420000002,
+    },
   };
 
   componentDidMount() {
     this.delayedShowMarker();
+    this.getUserLocation();
   }
 
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true });
     }, 3000);
+  };
+
+  getUserLocation = () => {
+    console.log('I am getting your location');
+    if (navigator.geolocation) {
+      console.log('I am inside the if statement');
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState(prevState => ({
+          currentLatLng: {
+            ...prevState.currentLatLng,
+            lat: position.coords.latitute,
+            lng: position.coords.longitude,
+          },
+        }));
+        console.log('current location', position);
+      });
+    }
   };
 
   handleMarkerClick = item => {
@@ -150,11 +182,13 @@ class MapClass extends React.Component {
   };
 
   render() {
+    console.log('state lat long', this.state.currentLatLng);
     return (
       <MapComponent
         className="map-component"
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        currentLocation={this.state.currentLatLng}
         toggleDrawer={() => {
           this.props.getServices();
           this.props.toggleDrawer();
