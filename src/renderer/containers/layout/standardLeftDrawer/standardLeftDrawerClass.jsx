@@ -4,23 +4,18 @@ import Flexbox from 'flexbox-react';
 
 import Icon from 'components/icon';
 import Checkbox from 'react-toolbox/lib/checkbox';
+import { openCategories, selectedServices } from 'redux-modules/services/paths';
 
 export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
+    openCategories: PropTypes.object.isRequired,
     menu: PropTypes.array.isRequired,
+    selectedServices: PropTypes.object.isRequired,
+    set: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: {},
-      isSelected: {},
-    };
-  }
 
   _renderSubCategories = taxId => {
     const result = [];
@@ -34,13 +29,15 @@ export default class StandardLeftDrawer extends React.Component {
           justifyContent="flex-start"
           alignItems="center">
           <Checkbox
-            checked={this.state.isSelected[child.id] || false}
+            checked={this.props.selectedServices[child.id] || false}
             label={child.description}
             onChange={value => {
               this.props.getServiceLocations(child.id, value);
-              this.setState(prevState => ({
-                isSelected: { ...prevState.isSelected, [child.id]: value },
-              }));
+              const updateData = {
+                ...this.props.selectedServices,
+                [child.id]: value,
+              };
+              this.props.set(updateData, selectedServices);
             }}
           />
         </Flexbox>
@@ -52,7 +49,7 @@ export default class StandardLeftDrawer extends React.Component {
   _renderCategories = () => {
     const categories = [];
     this.props.menu.forEach(item => {
-      const isOpen = this.state.isOpen[item.id];
+      const isOpen = this.props.openCategories[item.id];
       categories.push(
         <Flexbox
           key={`service-${item.id}`}
@@ -65,13 +62,15 @@ export default class StandardLeftDrawer extends React.Component {
             className="category"
             justifyContent="flex-start"
             onClick={() => {
-              const currentlyOpen = this.state.isOpen[item.id] || false;
+              const currentlyOpen = this.props.openCategories[item.id] || false;
               if (!currentlyOpen) {
                 this.props.getServiceChildren(item.id);
               }
-              this.setState(prevState => ({
-                isOpen: { ...prevState.isOpen, [item.id]: !currentlyOpen },
-              }));
+              const updatedState = {
+                ...this.props.openCategories,
+                [item.id]: !currentlyOpen,
+              };
+              this.props.set(updatedState, openCategories);
             }}>
             <Icon icon={isOpen ? 'arrow_down' : 'arrow_right'} size="xsm" />
             <h3>{item.description}</h3>
