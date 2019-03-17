@@ -1,6 +1,6 @@
 # community-services-locator-ui
 
-Building a UI for community locator services
+[Projects website](https://scodemeetup.github.io/locator-jekyll/)
 
 # Steps to start developing
 
