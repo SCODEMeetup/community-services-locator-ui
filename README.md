@@ -1,6 +1,6 @@
 # community-services-locator-ui
 
-[Projects website](https://scodemeetup.github.io/locator-jekyll/)
+[Project website](https://scodemeetup.github.io/locator-jekyll/)
 
 # Steps to start developing
 
