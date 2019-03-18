@@ -1,92 +1,86 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Flexbox from 'flexbox-react';
-import {
-  filter,
-} from 'ramda';
 
 import Icon from 'components/icon';
 import Checkbox from 'react-toolbox/lib/checkbox';
+import { openCategories, selectedServices } from 'redux-modules/services/paths';
 
 export default class StandardLeftDrawer extends React.Component {
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.object.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
+    openCategories: PropTypes.object.isRequired,
     menu: PropTypes.array.isRequired,
+    selectedServices: PropTypes.object.isRequired,
+    set: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      isOpen: {},
-      isSelected: {}
-    }
-  }
-
-  _renderSubCategories = (taxId) => {
+  _renderSubCategories = taxId => {
     const result = [];
-    const filteredItems = filter(item => item.TAXON_ID_SUBCAT_OF == taxId, this.props.children);
+    const filteredItems = this.props.children[taxId] || [];
 
-    filteredItems.forEach((child) => {
+    filteredItems.forEach(child => {
       result.push(
         <Flexbox
-          key={`subItem-${child.TAXON_ID}`}
-          className={`subItems`}
+          key={`subItem-${child.id}`}
+          className="subItems"
           justifyContent="flex-start"
-          alignItems="center"
-        >
+          alignItems="center">
           <Checkbox
-            checked={this.state.isSelected[child.TAXON_ID] || false}
-            label={child.DESCRIPTION}
-            onChange={(value) => 
-            {
-              console.log('grabbing agencies');
-              this.props.getServiceLocations(child.TAXON_ID, value);
-              this.setState((prevState) =>
-                ({isSelected: {...prevState.isSelected, [child.TAXON_ID]: value }}))}
-            }
+            checked={this.props.selectedServices[child.id] || false}
+            label={child.description}
+            onChange={value => {
+              this.props.getServiceLocations(child.id, value);
+              const updateData = {
+                ...this.props.selectedServices,
+                [child.id]: value,
+              };
+              this.props.set(updateData, selectedServices);
+            }}
           />
         </Flexbox>
       );
     });
     return result;
-  }
+  };
 
   _renderCategories = () => {
     const categories = [];
-    this.props.menu.forEach((item) => {
-      const isOpen = this.state.isOpen[item.TAXON_ID];
+    this.props.menu.forEach(item => {
+      const isOpen = this.props.openCategories[item.id];
       categories.push(
         <Flexbox
-          key={`service-${item.TAXON_ID}`}
+          key={`service-${item.id}`}
           className="cat-row"
           flexDirection="column"
           alignItems="flex-start"
-          justifyContent="center"
-        >
+          justifyContent="center">
           <Flexbox
             alignItems="center"
             className="category"
             justifyContent="flex-start"
             onClick={() => {
-              const currentlyOpen = this.state.isOpen[item.TAXON_ID] ||false;
-              if(!currentlyOpen) {
-                this.props.getServiceChildren(item.TAXON_ID);
+              const currentlyOpen = this.props.openCategories[item.id] || false;
+              if (!currentlyOpen) {
+                this.props.getServiceChildren(item.id);
               }
-              this.setState(prevState => ({ isOpen: {...prevState.isOpen, [item.TAXON_ID]: !currentlyOpen}}));
-            }}
-          >
+              const updatedState = {
+                ...this.props.openCategories,
+                [item.id]: !currentlyOpen,
+              };
+              this.props.set(updatedState, openCategories);
+            }}>
             <Icon icon={isOpen ? 'arrow_down' : 'arrow_right'} size="xsm" />
-            <h3>{item.DESCRIPTION}</h3>
+            <h3>{item.description}</h3>
           </Flexbox>
-          { isOpen && this._renderSubCategories(item.TAXON_ID) }
+          {isOpen && this._renderSubCategories(item.id)}
         </Flexbox>
       );
     });
     return categories;
-  }
+  };
 
   render() {
     return (

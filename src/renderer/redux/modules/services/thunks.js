@@ -1,5 +1,5 @@
 import { select, setstate } from 'redux-modules/general';
-import { includes, filter, pluck, without } from 'ramda';
+import { includes, filter, pluck, without, uniqBy } from 'ramda';
 import { children, markers, menu } from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
@@ -8,7 +8,7 @@ export function getServices(taxId = 10) {
   return dispatch => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v1/taxonomy/${taxId}/children`,
+        `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`,
         GET,
         {
           successToast: 'successfully grabbed services',
@@ -18,7 +18,6 @@ export function getServices(taxId = 10) {
     )
       .then(response => {
         dispatch(setstate(response, menu));
-        return;
       })
       .catch(console.error);
   };
@@ -26,49 +25,46 @@ export function getServices(taxId = 10) {
 
 export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
+    let uri = `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`;
+    if (taxId === '11') {
+      uri = 'https://mofb-api.appspot.com/api/v2/taxonomy/food';
+    }
     dispatch(
-      requestUrl(
-        `https://mofb-api.appspot.com/api/v1/taxonomy/${taxId}/children`,
-        GET,
-        {
-          successToast: 'successfully grabbed services',
-          errorToast: 'failed to fetch services',
-        }
-      )
+      requestUrl(uri, GET, {
+        successToast: 'successfully grabbed services',
+        errorToast: 'failed to fetch services',
+      })
     )
       .then(response => {
-        const currentState = pluck('TAXON_ID', select(children, getState()));
-        const data = filter(
-          item => !includes(item.TAXON_ID, currentState),
-          response
-        );
-        const currentChildren = [...select(children, getState()), ...data];
+        const currentChildren = {
+          ...select(children, getState()),
+          [taxId]: response,
+        };
 
         dispatch(setstate(currentChildren, children));
-        return;
       })
       .catch(console.error);
   };
 }
 
-export function getServiceLocations(taxId, showMarkers) {
+export function getSpecificLocations(taxId, agencyId, showMarkers) {
   return (dispatch, getState) => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v1/agency?taxonomyId=${taxId}`,
+        `https://mofb-api.appspot.com/api/v2/location?taxonomyId=${taxId}&agencyId=${agencyId.toString()}`,
         GET,
         {
-          successToast: 'successfully grabbed agencies',
-          errorToast: 'failed to fetch agencies',
+          successToast: 'successfully grabbed locations',
+          errorToast: 'failed to fetch locations',
         }
       )
     )
       .then(response => {
         let currentMarkers = [];
         if (showMarkers) {
-          const currentState = pluck('TAXON_ID', select(markers, getState()));
+          const currentState = pluck('id', select(markers, getState()));
           const data = filter(
-            item => !includes(item.TAXON_ID, currentState),
+            item => !includes(item.id, currentState),
             response
           );
           currentMarkers = [...select(markers, getState()), ...data];
@@ -76,8 +72,27 @@ export function getServiceLocations(taxId, showMarkers) {
           currentMarkers = without(response, select(markers, getState()));
         }
 
-        dispatch(setstate(currentMarkers, markers));
-        return;
+        dispatch(setstate(uniqBy(item => item.id, currentMarkers), markers));
+      })
+      .catch(console.error);
+  };
+}
+
+export function getServiceLocations(taxId, showMarkers) {
+  return dispatch => {
+    dispatch(
+      requestUrl(
+        `https://mofb-api.appspot.com/api/v2/agency?taxonomyId=${taxId}`,
+        GET,
+        {
+          successToast: 'successfully grabbed locations',
+          errorToast: 'failed to fetch locations',
+        }
+      )
+    )
+      .then(response => {
+        const agencyIds = pluck('id', response);
+        dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
       })
       .catch(console.error);
   };
@@ -86,5 +101,6 @@ export function getServiceLocations(taxId, showMarkers) {
 export default {
   getServiceChildren,
   getServiceLocations,
+  getSpecificLocations,
   getServices,
 };

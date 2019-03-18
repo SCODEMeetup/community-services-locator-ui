@@ -1,10 +1,15 @@
 import { connect } from 'react-redux';
 
-import { select } from 'redux-modules/general';
+import { select, setstate } from 'redux-modules/general';
 
 import { loadingType, showLoading } from 'redux-modules/layout/loading/paths';
 import { isOpen } from 'redux-modules/layout/drawer/paths';
-import { children, menu } from 'redux-modules/services/paths';
+import {
+  children,
+  menu,
+  openCategories,
+  selectedServices,
+} from 'redux-modules/services/paths';
 import {
   getServiceChildren,
   getServiceLocations,
@@ -20,14 +25,17 @@ const mapStateToProps = state => ({
   loadingType: select(loadingType, state),
   isOpen: select(isOpen, state),
   menu: select(menu, state),
+  openCategories: select(openCategories, state),
   route: select(route, state),
   showLoading: select(showLoading, state),
+  selectedServices: select(selectedServices, state),
 });
 
 const actions = {
   getServiceChildren,
   getServiceLocations,
   toggleDrawer,
+  setstate,
 };
 
 export default connect(

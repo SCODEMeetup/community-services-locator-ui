@@ -1,6 +1,6 @@
 # community-services-locator-ui
 
-Building a UI for community locator services
+[Project website](https://scodemeetup.github.io/locator-jekyll/)
 
 # Steps to start developing
 
@@ -67,6 +67,6 @@ const grabValue = select(pathToList, store);
   }
 ```
 
-## Deploying to Heroku (can only be done by mihiramin89 currently)
+## Deploying to Heroku
 
-run the following command `git push heroku master` (after logging into Heroku)
+Continuous deployment is setup to push code in prod when master is updated.

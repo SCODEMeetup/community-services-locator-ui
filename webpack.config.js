@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const Dotenv = require('dotenv-webpack');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEFAULT_PORT = process.env.PORT || 3000;
@@ -106,16 +106,12 @@ module.exports = ({ prod } = {}) => {
     plugins: [
       ...(prod
         ? [
-            new FileManagerPlugin({
-              onEnd: {
-                copy: [
-                  {
-                    source: path.resolve(__dirname, 'public', '*'),
-                    destination: path.resolve(__dirname, 'dist'),
-                  },
-                ],
+            new CopyPlugin([
+              {
+                from: path.resolve(__dirname, 'public', '*'),
+                to: path.resolve(__dirname, 'dist'),
               },
-            }),
+            ]),
           ]
         : [new webpack.HotModuleReplacementPlugin()]),
       // extractCSS,

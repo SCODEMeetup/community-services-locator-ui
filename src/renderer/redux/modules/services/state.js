@@ -1,5 +1,7 @@
 export default {
-  children: [],
+  children: {},
   markers: [],
   menu: [],
+  selectedServices: {},
+  openCategories: {},
 };
