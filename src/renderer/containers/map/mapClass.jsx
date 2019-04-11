@@ -35,7 +35,7 @@ const MapComponent = compose(
     }&callback=initMap&libraries=places`,
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '98%', width: '100%' }} />,
-    mapElement: <div style={{ height: '100%' }} />,
+    mapElement: <div style={{ height: '100%' }} />
   }),
   lifecycle({
     componentWillMount() {
@@ -146,10 +146,10 @@ class MapClass extends React.Component {
       lng: -82.99879420000002,
     },
   };
-
+  
   componentDidMount() {
     this.delayedShowMarker();
-    this.getUserLocation();
+    setTimeout(this.getUserLocation(), 2000);
   }
 
   delayedShowMarker = () => {
@@ -157,21 +157,18 @@ class MapClass extends React.Component {
       this.setState({ isMarkerShown: true });
     }, 3000);
   };
-
+  // this.setState(prevState => ({
+  //   currentLatLng: {
+  //     ...prevState.currentLatLng,
+  //     lat: position.coords.latitute,
+  //     lng: position.coords.longitude,
+  //   },
+  // }));
   getUserLocation = () => {
     console.log('I am getting your location');
     if (navigator.geolocation) {
       console.log('I am inside the if statement');
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState(prevState => ({
-          currentLatLng: {
-            ...prevState.currentLatLng,
-            lat: position.coords.latitute,
-            lng: position.coords.longitude,
-          },
-        }));
-        console.log('current location', position);
-      });
+      navigator.geolocation.getCurrentPosition(position => console.log('success', position), err => console.error(err));
     }
   };
 
