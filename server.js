@@ -30,7 +30,7 @@ app.use(function(req, res, next) {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   );
-  res.setHeader('Content-Security-Policy', csp.join(' '));
+  res.header('Content-Security-Policy', csp.join(' '));
   next();
 });
 
