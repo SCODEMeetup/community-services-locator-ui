@@ -3,5 +3,5 @@ export default {
   markers: [],
   menu: [],
   selectedServices: {},
-  openCategories: {},
+  openCategory: '',
 };

@@ -1,6 +1,11 @@
 import { select, setstate } from 'redux-modules/general';
 import { includes, filter, pluck, without, uniqBy } from 'ramda';
-import { children, markers, menu } from 'redux-modules/services/paths';
+import {
+  children,
+  markers,
+  menu,
+  openCategory,
+} from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
 
@@ -17,7 +22,7 @@ export function getServices(taxId = 10) {
       )
     )
       .then(response => {
-        dispatch(setstate(response, menu));
+        return dispatch(setstate(response, menu));
       })
       .catch(console.error);
   };
@@ -41,7 +46,8 @@ export function getServiceChildren(taxId) {
           [taxId]: response,
         };
 
-        dispatch(setstate(currentChildren, children));
+        dispatch(setstate(taxId, openCategory));
+        return dispatch(setstate(currentChildren, children));
       })
       .catch(console.error);
   };
@@ -72,7 +78,9 @@ export function getSpecificLocations(taxId, agencyId, showMarkers) {
           currentMarkers = without(response, select(markers, getState()));
         }
 
-        dispatch(setstate(uniqBy(item => item.id, currentMarkers), markers));
+        return dispatch(
+          setstate(uniqBy(item => item.id, currentMarkers), markers)
+        );
       })
       .catch(console.error);
   };
@@ -92,7 +100,7 @@ export function getServiceLocations(taxId, showMarkers) {
     )
       .then(response => {
         const agencyIds = pluck('id', response);
-        dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
+        return dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
       })
       .catch(console.error);
   };

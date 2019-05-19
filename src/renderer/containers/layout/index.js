@@ -7,12 +7,13 @@ import { isOpen } from 'redux-modules/layout/drawer/paths';
 import {
   children,
   menu,
-  openCategories,
+  openCategory,
   selectedServices,
 } from 'redux-modules/services/paths';
 import {
   getServiceChildren,
   getServiceLocations,
+  getServices,
 } from 'redux-modules/services/thunks';
 
 import { toggleDrawer } from 'redux-modules/layout/drawer/thunks';
@@ -25,13 +26,14 @@ const mapStateToProps = state => ({
   loadingType: select(loadingType, state),
   isOpen: select(isOpen, state),
   menu: select(menu, state),
-  openCategories: select(openCategories, state),
+  openCategory: select(openCategory, state),
   route: select(route, state),
   showLoading: select(showLoading, state),
   selectedServices: select(selectedServices, state),
 });
 
 const actions = {
+  getServices,
   getServiceChildren,
   getServiceLocations,
   toggleDrawer,
