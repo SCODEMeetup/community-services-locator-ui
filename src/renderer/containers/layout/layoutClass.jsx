@@ -110,6 +110,7 @@ class Layout extends React.Component {
           menu={this.props.menu}
           openDrawer={this.props.toggleDrawer}
           getServiceChildren={taxId => this.props.getServiceChildren(taxId)}
+          selectedServices={this.props.selectedServices}
           showAppBar
         />
         <ProgressBar

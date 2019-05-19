@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Flexbox from 'flexbox-react';
+import { omit } from 'ramda';
 
 import Checkbox from 'react-toolbox/lib/checkbox';
 import { selectedServices } from 'redux-modules/services/paths';
@@ -33,15 +34,21 @@ export default class StandardLeftDrawer extends React.Component {
             label={child.description}
             onChange={value => {
               this.props.getServiceLocations(child.id, value);
-              const taxSpread = this.props.selectedServices[taxId]
+              let taxSpread = this.props.selectedServices[taxId]
                 ? this.props.selectedServices[taxId]
                 : {};
-              const updateData = {
-                ...this.props.selectedServices,
-                [taxId]: {
+              if (!value) {
+                // unchecked, so omit from array.
+                taxSpread = omit([child.id], taxSpread);
+              } else {
+                taxSpread = {
                   ...taxSpread,
                   [child.id]: value,
-                },
+                };
+              }
+              const updateData = {
+                ...this.props.selectedServices,
+                [taxId]: taxSpread,
               };
               this.props.set(updateData, selectedServices);
             }}

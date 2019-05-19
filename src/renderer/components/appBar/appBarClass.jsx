@@ -12,6 +12,7 @@ export default class CustomAppBar extends React.Component {
     menu: [],
     openDrawer: () => {},
     getServiceChildren: () => {},
+    selectedServices: {},
     tall: false,
   };
 
@@ -20,13 +21,19 @@ export default class CustomAppBar extends React.Component {
     getServiceChildren: PropTypes.func,
     menu: PropTypes.array,
     openDrawer: PropTypes.func,
+    selectedServices: PropTypes.object,
     showAppBar: PropTypes.bool.isRequired,
     tall: PropTypes.bool,
   };
 
   _renderCategories = () => {
     const categories = [];
-    const { getServiceChildren, menu, openDrawer } = this.props;
+    const {
+      getServiceChildren,
+      menu,
+      openDrawer,
+      selectedServices,
+    } = this.props;
 
     if (menu.length > 0) {
       menu.forEach(item => {
@@ -36,12 +43,14 @@ export default class CustomAppBar extends React.Component {
             key={item.id}
             color="white"
             onClick={() => {
-              console.log('id', item);
               getServiceChildren(item.id);
               openDrawer();
             }}
           >
-            {item.description}
+            {item.description}{' '}
+            {selectedServices[item.id] && Object.keys(selectedServices[item.id]).length > 0
+              ? `(${Object.keys(selectedServices[item.id]).length})`
+              : null}
           </Button>
         );
       });
@@ -58,8 +67,7 @@ export default class CustomAppBar extends React.Component {
 
     return (
       <AppBar className={concatClasses(classNames)} flat>
-        <Icon icon="logo" size="xlg" />
-        <div className="spacer" />
+        <Icon icon="logo" size="xlg" className="logo" />
         {this._renderCategories()}
       </AppBar>
     );
