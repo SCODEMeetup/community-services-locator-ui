@@ -36,9 +36,10 @@ class Layout extends React.Component {
     children: PropTypes.object.isRequired,
     getServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
+    getServices: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    openCategories: PropTypes.object.isRequired,
+    openCategory: PropTypes.string.isRequired,
     menu: PropTypes.array.isRequired,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,
@@ -46,6 +47,12 @@ class Layout extends React.Component {
     setstate: PropTypes.func.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+
+    props.getServices();
+  }
 
   _getView() {
     const viewClassNames = [
@@ -63,12 +70,10 @@ class Layout extends React.Component {
             onOverlayClick={this.props.toggleDrawer}>
             <DrawerContents
               children={this.props.children}
-              getServiceChildren={taxId => this.props.getServiceChildren(taxId)}
               getServiceLocations={(taxId, showMarkers) =>
                 this.props.getServiceLocations(taxId, showMarkers)
               }
-              menu={this.props.menu}
-              openCategories={this.props.openCategories}
+              openCategory={this.props.openCategory}
               selectedServices={this.props.selectedServices}
               set={this.props.setstate}
             />
@@ -101,7 +106,13 @@ class Layout extends React.Component {
         className={concatClasses(layoutClasses)}
         flexDirection="column"
         height="100vh">
-        <AppBar showAppBar />
+        <AppBar
+          menu={this.props.menu}
+          openDrawer={this.props.toggleDrawer}
+          getServiceChildren={taxId => this.props.getServiceChildren(taxId)}
+          selectedServices={this.props.selectedServices}
+          showAppBar
+        />
         <ProgressBar
           className={concatClasses([
             equals(this.props.loadingType, DISABLE_INNER_MAIN) ||
