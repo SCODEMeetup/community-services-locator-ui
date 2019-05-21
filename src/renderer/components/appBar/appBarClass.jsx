@@ -37,22 +37,24 @@ export default class CustomAppBar extends React.Component {
 
     if (menu.length > 0) {
       menu.forEach(item => {
-        // eslint-disable-next-line react/button-has-type
-        categories.push(
-          <Button
-            key={item.id}
-            color="white"
-            onClick={() => {
-              getServiceChildren(item.id);
-              openDrawer();
-            }}
-          >
-            {item.description}{' '}
-            {selectedServices[item.id] && Object.keys(selectedServices[item.id]).length > 0
-              ? `(${Object.keys(selectedServices[item.id]).length})`
-              : null}
-          </Button>
-        );
+        if (item.id === '30' || item.id === '139' || item.id === '11') {
+          // eslint-disable-next-line react/button-has-type
+          categories.push(
+            <Button
+              key={item.id}
+              color="white"
+              onClick={() => {
+                getServiceChildren(item.id);
+                openDrawer();
+              }}
+            >
+              {item.description}{' '}
+              {selectedServices[item.id] && Object.keys(selectedServices[item.id]).length > 0
+                ? `(${Object.keys(selectedServices[item.id]).length})`
+                : null}
+            </Button>
+          );
+        }
       });
     }
     return categories;
