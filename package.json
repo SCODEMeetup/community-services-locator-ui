@@ -17,7 +17,7 @@
     "pre-coverage": "cross-env istanbul instrument src --output coverage --no-compact --complete-copy --es-modules",
     "get-coverage": "npm run cleanup && npm run pre-coverage && npm run tests-coverage -- -R test/istanbul-reporter.js",
     "precommit": "lint-staged",
-    "bundle": "webpack --config webpack.config.js",
+    "bundle": "webpack --config webpack.config.js -p --env.prod",
     "prestart": "npm run bundle"
   },
   "dependencies": {
@@ -48,7 +48,8 @@
     "router5-plugin-browser": "^7.0.1",
     "showdown": "^1.9.0",
     "throttle-debounce": "^2.0.1",
-    "universal-ga": "^1.2.0"
+    "universal-ga": "^1.2.0",
+    "webpack": "^4.28.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
