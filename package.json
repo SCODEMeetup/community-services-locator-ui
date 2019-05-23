@@ -17,7 +17,7 @@
     "pre-coverage": "cross-env istanbul instrument src --output coverage --no-compact --complete-copy --es-modules",
     "get-coverage": "npm run cleanup && npm run pre-coverage && npm run tests-coverage -- -R test/istanbul-reporter.js",
     "precommit": "lint-staged",
-    "bundle": "webpack --config webpack.config.js -p --env.prod",
+    "bundle": "webpack -p --env.prod",
     "prestart": "npm run bundle"
   },
   "dependencies": {
