@@ -1,8 +1,9 @@
-runtime: nodejs8
+runtime: nodejs
 instance_class: F1
 env_variables:
   BUCKET_NAME: "scode-test"
   NODE_ENV: production
+  NPM_CONFIG_PRODUCTION: false
 handlers:
 - url: /stylesheets
   static_dir: stylesheets

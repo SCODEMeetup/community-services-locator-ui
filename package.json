@@ -16,7 +16,9 @@
     "tests-coverage": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/helpers.js --timeout 10000 coverage/**/*.spec.js",
     "pre-coverage": "cross-env istanbul instrument src --output coverage --no-compact --complete-copy --es-modules",
     "get-coverage": "npm run cleanup && npm run pre-coverage && npm run tests-coverage -- -R test/istanbul-reporter.js",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "bundle": "webpack --config webpack.config.js",
+    "prestart": "npm run bundle"
   },
   "dependencies": {
     "attr-accept": "^1.1.3",
