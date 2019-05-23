@@ -15,4 +15,31 @@
   &.-tall {
     height: 16rem;
   }
+  .logo {
+    display: contents;
+  }
+}
+
+@media (max-width: 1000px) {
+  .button {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 800px) {
+  .button {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 660px) {
+  .button {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .button {
+    font-size: 6px;
+  }
 }

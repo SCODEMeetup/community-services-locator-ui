@@ -9,9 +9,6 @@ import {
   Marker,
 } from 'react-google-maps';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
-import Icon from 'components/icon';
-import IconButton from 'components/iconButton';
-import Input from 'react-toolbox/lib/input';
 import InfoContent from './infoBox';
 
 const MapComponent = compose(
@@ -35,13 +32,8 @@ const MapComponent = compose(
   }),
   lifecycle({
     componentWillMount() {
-      const refs = {};
-
       this.setState({
         places: [],
-        onSearchBoxMounted: ref => {
-          refs.searchBox = ref;
-        },
         onPlacesChanged: () => {
           console.log('places changing');
         },
@@ -50,25 +42,10 @@ const MapComponent = compose(
   }),
   withScriptjs,
   withGoogleMap
-)((props, state) => (
+)((props) => (
   <GoogleMap
     defaultZoom={14}
     defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}>
-    <div className="search-box">
-      <IconButton
-        className="filter-icon"
-        onClick={() => props.toggleDrawer()}
-        icon={<Icon icon="filters" size="sm" />}
-      />
-      <Input
-        className="autocomplete"
-        direction="down"
-        label=""
-        hint="Search services"
-        onChange={props.onPlacesChanged()}
-        value={state.places}
-      />
-    </div>
     {props.isMarkerShown &&
       props.markers.map(marker => (
         <Marker
@@ -97,8 +74,6 @@ const MapComponent = compose(
 class MapClass extends React.Component {
   static propTypes = {
     markers: PropTypes.array,
-    toggleDrawer: PropTypes.func.isRequired,
-    getServices: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -125,10 +100,6 @@ class MapClass extends React.Component {
         className="map-component"
         isMarkerShown={this.state.isMarkerShown}
         markers={this.props.markers}
-        toggleDrawer={() => {
-          this.props.getServices();
-          this.props.toggleDrawer();
-        }}
       />
     );
   }
