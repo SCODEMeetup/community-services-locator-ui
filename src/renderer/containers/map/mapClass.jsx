@@ -59,7 +59,7 @@ const MapComponent = compose(
             <InfoBox
               options={{
                 boxClass: 'info-window',
-                boxStyle: { backgroundColor: `#2A2E43` },
+                boxStyle: { backgroundColor: `#707070` },
                 closeBoxMargin: '0',
               }}
               onCloseClick={() => props.onToggleOpen(null)}>
