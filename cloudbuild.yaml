@@ -2,8 +2,8 @@ steps:
 - name: "gcr.io/cloud-builders/git"
   args: ['fetch', '--unshallow']
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
+  args: ['npm', 'run', 'install']
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['run bundle']
+  args: ['npm', 'run', 'bundle']
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy"]
