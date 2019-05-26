@@ -3,13 +3,13 @@ export const markers = [...services, 'markers'];
 export const menu = [...services, 'menu'];
 export const children = [...services, 'children'];
 export const selectedServices = [...services, 'selectedServices'];
-export const openCategories = [...services, 'openCategories'];
+export const openCategory = [...services, 'openCategory'];
 
 export default {
   children,
   markers,
   menu,
   selectedServices,
-  openCategories,
+  openCategory,
   services,
 };
