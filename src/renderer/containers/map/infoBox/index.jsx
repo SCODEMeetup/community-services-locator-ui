@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isNil, replace } from 'ramda';
+import Icon from 'components/icon';
 
 import './infoBox.scss';
 
@@ -22,6 +23,7 @@ export default class InfoBox extends React.Component {
 
   static propTypes = {
     details: PropTypes.object,
+    // onCloseClick: PropTypes.func.isRequired,
   };
 
   render() {
@@ -29,26 +31,37 @@ export default class InfoBox extends React.Component {
     return (
       <div className="info-box">
         <div className="content">
-          <h3>{details.name}</h3>
+          <h2>{details.name}</h2>
           <p>{details.address1}</p>
           <p>{details.address2}</p>
-          <a href={`tel:${replace(/-/g,'',details.areaCode)}${replace(/-/g,'',details.phoneNumber)}`} className="number">
+          <a
+            href={`tel:${replace(/-/g, '', details.areaCode)}${replace(
+              /-/g,
+              '',
+              details.phoneNumber
+            )}`}
+            className="number">
             {details.areaCode}
             {details.phoneNumber}
           </a>
-          <hr />
           {!isNil(details.hours) && (
             <div>
-              <h3>Hours</h3>
               <hr />
+              <h3>Hours</h3>
               <p>{details.hours}</p>
             </div>
           )}
           {!isNil(details.services) && (
             <div>
+              <hr />
               <h3>Services</h3>
               <hr />
               <p>{details.services}</p>
+            </div>
+          )}
+          {details.handicapAccessFlag.toLowerCase() === 'y' && (
+            <div className="handicap-section">
+              <Icon icon="handicap" size="xsm" />
             </div>
           )}
         </div>
