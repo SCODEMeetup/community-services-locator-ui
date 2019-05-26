@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isNil } from 'ramda';
+import { isNil, replace } from 'ramda';
 import Icon from 'components/icon';
 
 import './infoBox.scss';
@@ -34,7 +34,13 @@ export default class InfoBox extends React.Component {
           <h2>{details.name}</h2>
           <p>{details.address1}</p>
           <p>{details.address2}</p>
-          <a className="number">
+          <a
+            href={`tel:${replace(/-/g, '', details.areaCode)}${replace(
+              /-/g,
+              '',
+              details.phoneNumber
+            )}`}
+            className="number">
             {details.areaCode}
             {details.phoneNumber}
           </a>
