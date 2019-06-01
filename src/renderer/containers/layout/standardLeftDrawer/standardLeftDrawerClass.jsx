@@ -15,9 +15,13 @@ export default class StandardLeftDrawer extends React.Component {
     set: PropTypes.func.isRequired,
   };
 
+  state = { allChecked: false };
+
   _renderSubCategories = taxId => {
     const result = [];
     const filteredItems = this.props.children[taxId] || [];
+
+    // add check all, if checked then set filteredItems to all children[taxId]
 
     filteredItems.forEach(child => {
       const itemChecked = this.props.selectedServices[taxId]
@@ -71,9 +75,28 @@ export default class StandardLeftDrawer extends React.Component {
     );
   };
 
+  _selectAll() {
+    return (
+      <Flexbox
+        key="selectAll"
+        className="subItems"
+        justifyContent="flex-start"
+        alignItems="center">
+        <Checkbox
+          checked={this.state.allChecked}
+          label="SELECT ALL"
+          onChange={value => {
+            this.setState(prevState => ({ allChecked: !prevState.allChecked }));
+          }}
+        />
+      </Flexbox>
+    );
+  }
+
   render() {
     return (
       <Flexbox className="left-drawer" flexDirection="column">
+        {this._selectAll()}
         {this._renderCategories()}
       </Flexbox>
     );
