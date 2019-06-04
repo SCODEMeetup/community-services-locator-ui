@@ -21,12 +21,15 @@ export default class StandardLeftDrawer extends React.Component {
     const result = [];
     const filteredItems = this.props.children[taxId] || [];
 
-    // add check all, if checked then set filteredItems to all children[taxId]
-
     filteredItems.forEach(child => {
-      const itemChecked = this.props.selectedServices[taxId]
+      let itemChecked = this.props.selectedServices[taxId]
         ? this.props.selectedServices[taxId][child.id] || false
         : false;
+      if (this.state.allChecked) {
+        itemChecked = true;
+        this.props.getServiceLocations(child.id, true);
+      }
+
       result.push(
         <Flexbox
           key={`subItem-${child.id}`}
@@ -37,6 +40,7 @@ export default class StandardLeftDrawer extends React.Component {
             checked={itemChecked}
             label={child.description}
             onChange={value => {
+              // console.log('value', value);
               this.props.getServiceLocations(child.id, value);
               let taxSpread = this.props.selectedServices[taxId]
                 ? this.props.selectedServices[taxId]
