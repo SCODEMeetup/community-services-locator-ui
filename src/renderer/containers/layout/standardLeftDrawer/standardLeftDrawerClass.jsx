@@ -22,13 +22,9 @@ export default class StandardLeftDrawer extends React.Component {
     const filteredItems = this.props.children[taxId] || [];
 
     filteredItems.forEach(child => {
-      let itemChecked = this.props.selectedServices[taxId]
+      const itemChecked = this.props.selectedServices[taxId]
         ? this.props.selectedServices[taxId][child.id] || false
         : false;
-      if (this.state.allChecked) {
-        itemChecked = true;
-        this.props.getServiceLocations(child.id, true);
-      }
 
       result.push(
         <Flexbox
@@ -40,25 +36,10 @@ export default class StandardLeftDrawer extends React.Component {
             checked={itemChecked}
             label={child.description}
             onChange={value => {
-              // console.log('value', value);
-              this.props.getServiceLocations(child.id, value);
-              let taxSpread = this.props.selectedServices[taxId]
-                ? this.props.selectedServices[taxId]
-                : {};
-              if (!value) {
-                // unchecked, so omit from array.
-                taxSpread = omit([child.id], taxSpread);
-              } else {
-                taxSpread = {
-                  ...taxSpread,
-                  [child.id]: value,
-                };
-              }
-              const updateData = {
-                ...this.props.selectedServices,
-                [taxId]: taxSpread,
-              };
-              this.props.set(updateData, selectedServices);
+              this.props.set(
+                this._getServices(child, value, this.props.selectedServices),
+                selectedServices
+              );
             }}
           />
         </Flexbox>
@@ -79,6 +60,27 @@ export default class StandardLeftDrawer extends React.Component {
     );
   };
 
+  _getServices = (child, value, services = {}) => {
+    // console.log('value', value);
+    const taxId = this.props.openCategory;
+    this.props.getServiceLocations(child.id, value);
+    let taxSpread = services[taxId];
+    if (!value) {
+      // unchecked, so omit from array.
+      taxSpread = omit([child.id], taxSpread);
+    } else {
+      taxSpread = {
+        ...taxSpread,
+        [child.id]: value,
+      };
+    }
+    const updateData = {
+      ...services,
+      [taxId]: taxSpread,
+    };
+    return updateData;
+  };
+
   _selectAll() {
     return (
       <Flexbox
@@ -90,7 +92,14 @@ export default class StandardLeftDrawer extends React.Component {
           checked={this.state.allChecked}
           label="SELECT ALL"
           onChange={value => {
-            this.setState(prevState => ({ allChecked: !prevState.allChecked }));
+            this.setState(prev => ({ allChecked: !prev.allChecked }));
+            const taxId = this.props.openCategory;
+            const filteredItems = this.props.children[taxId] || [];
+            let data = this.props.selectedServices;
+            filteredItems.forEach(child => {
+              data = this._getServices(child, value, data);
+            });
+            this.props.set(data, selectedServices);
           }}
         />
       </Flexbox>
