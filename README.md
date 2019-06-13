@@ -2,8 +2,8 @@
 
 1. App Site: https://scode-test.appspot.com/
 2. Community services repos:
-  2.1 UI: https://github.com/SCODEMeetup/community-services-locator-ui
-  2.2 API: https://github.com/SCODEMeetup/mofb-api
+    1. UI: https://github.com/SCODEMeetup/community-services-locator-ui
+    2. API: https://github.com/SCODEMeetup/mofb-api
 3. Project Board: https://github.com/orgs/SCODEMeetup/projects/8
 4. [Introduction website](https://scodemeetup.github.io/locator-jekyll/)
 
