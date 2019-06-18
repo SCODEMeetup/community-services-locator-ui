@@ -26,12 +26,28 @@ export default class InfoBox extends React.Component {
     // onCloseClick: PropTypes.func.isRequired,
   };
 
+  readOutLoud = message => {
+    const speech = new SpeechSynthesisUtterance();
+    const voices = window.speechSynthesis.getVoices();
+
+    // Set the text and voice attributes.
+    speech.text = message;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    // eslint-disable-next-line prefer-destructuring
+    speech.voice = voices[0];
+
+    window.speechSynthesis.speak(speech);
+  };
+
   render() {
     const { details } = this.props;
     return (
       <div className="info-box">
         <div className="content">
           <h2>{details.name}</h2>
+          {this.readOutLoud(details.name)}
           <p>{details.address1}</p>
           <p>{details.address2}</p>
           <a
