@@ -10,15 +10,19 @@
 .content {
   h2 {
     font-size: 1.25rem;
+    text-align: center;
   }
   h3 {
     font-size: 1.05rem;
     margin-bottom: 0;
+    padding-bottom: 2%;
+    padding-left: 2%;
   }
   p {
     text-align: center;
     font-size: 0.8rem;
     margin-top: 2px;
+    padding-left: 3%;
   }
   hr {
     color: white;
@@ -35,4 +39,14 @@
   display: block;
   font-size: 0.8rem;
   text-align: center;
+  padding-bottom: 2%;
+}
+
+.address {
+  color: white;
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 2%;
 }
