@@ -31,7 +31,7 @@ export default class InfoBox extends React.Component {
     const conversion = addr => replace(/ /g, '+', addr);
     const address = `https://www.google.com/maps/place/${conversion(
       details.address1
-    )}+${conversion(details.address2)}+${details.zipCode}`;
+    )}+${details.zipCode}`;
     return (
       <div className="info-box">
         <div className="content">
