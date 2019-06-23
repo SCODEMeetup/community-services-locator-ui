@@ -9,9 +9,9 @@ export default class InfoBox extends React.Component {
   static defaultProps = {
     details: {
       id: 'dummyID',
-      address1: 'defaultAddress',
+      address1: '',
       address2: '',
-      zipCode: 'zipCode',
+      zipCode: '',
       name: 'default Name',
       areaCode: '614',
       phoneNumber: '8689394',
@@ -28,12 +28,21 @@ export default class InfoBox extends React.Component {
 
   render() {
     const { details } = this.props;
+    const conversion = addr => replace(/ /g, '+', addr);
+    const address = `https://www.google.com/maps/place/${conversion(
+      details.address1
+    )}+${details.zipCode}`;
     return (
       <div className="info-box">
         <div className="content">
           <h2>{details.name}</h2>
-          <p>{details.address1}</p>
-          <p>{details.address2}</p>
+           <a
+            href={address}
+            className="address" target="_blank">
+            {details.address1}
+            <br />
+            {details.address2}
+          </a> 
           <a
             href={`tel:${replace(/-/g, '', details.areaCode)}${replace(
               /-/g,
