@@ -9,6 +9,8 @@ import {
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
 
+const LIMIT = 2000;
+
 export function getServices(taxId = 10) {
   return dispatch => {
     dispatch(
@@ -32,7 +34,7 @@ export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
     let uri = `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`;
     if (taxId === '11') {
-      uri = 'https://mofb-api.appspot.com/api/v2/taxonomy/food';
+      uri = `https://mofb-api.appspot.com/api/v2/taxonomy/food`;
     }
     dispatch(
       requestUrl(uri, GET, {
@@ -57,7 +59,7 @@ export function getSpecificLocations(taxId, agencyId, showMarkers) {
   return (dispatch, getState) => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v2/location?taxonomyId=${taxId}&agencyId=${agencyId.toString()}`,
+        `https://mofb-api.appspot.com/api/v2/location?taxonomyId=${taxId}&agencyId=${agencyId.toString()}&limit=${LIMIT}`,
         GET,
         {
           successToast: 'successfully grabbed locations',
@@ -90,7 +92,7 @@ export function getServiceLocations(taxId, showMarkers) {
   return dispatch => {
     dispatch(
       requestUrl(
-        `https://mofb-api.appspot.com/api/v2/agency?taxonomyId=${taxId}`,
+        `https://mofb-api.appspot.com/api/v2/agency?taxonomyId=${taxId}&limit=${LIMIT}`,
         GET,
         {
           successToast: 'successfully grabbed locations',
