@@ -32,13 +32,20 @@ export default class InfoBox extends React.Component {
     const address = `https://www.google.com/maps/place/${conversion(
       details.address1
     )}+${details.zipCode}`;
+    const email = {
+      to: 'smartcolumbusos@columbus.gov',
+      subject: 'Service location No Longer Active',
+      body: `The following service area is no longer active.\n\n\t${
+        details.name
+      }\n\t${details.address1}\n\t${details.address2}\n\tPhone: ${
+        details.areaCode
+      }${details.phoneNumber}`,
+    };
     return (
       <div className="info-box">
         <div className="content">
           <h2>{details.name}</h2>
-           <a
-            href={address}
-            className="address" target="_blank">
+          <a href={address} className="address" target="_blank">
             {details.address1}
             <br />
             {details.address2}
@@ -73,6 +80,17 @@ export default class InfoBox extends React.Component {
               <Icon icon="handicap" size="xsm" />
             </div>
           )}
+          <div className="feedback-section">
+            <a
+              className="mail"
+              href={`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${
+                email.to
+              }&su=${email.subject}&body=${encodeURIComponent(email.body)}`}
+              target="_blank"
+              rel="noopener noreferrer">
+              Report Inactive
+            </a>
+          </div>
         </div>
       </div>
     );
