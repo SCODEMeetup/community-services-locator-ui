@@ -34,7 +34,7 @@ export default class InfoBox extends React.Component {
     )}+${details.zipCode}`;
     const email = {
       to: 'smartcolumbusos@columbus.gov',
-      subject: 'Service location No Longer Active',
+      subject: 'Service Location No Longer Active',
       body: `The following service area is no longer active.\n\n\t${
         details.name
       }\n\t${details.address1}\n\t${details.address2}\n\tPhone: ${
