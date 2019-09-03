@@ -33,6 +33,7 @@ export default class InfoBox extends React.Component {
       details.address1
     )}+${details.zipCode}`;
     const email = {
+      cc: 'columbushelper+inactiveLocation@gmail.com',
       to: 'smartcolumbusos@columbus.gov',
       subject: 'Service Location No Longer Active',
       body: `The following service area is no longer active.\n\n\t${
@@ -85,7 +86,7 @@ export default class InfoBox extends React.Component {
               className="mail"
               href={`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${
                 email.to
-              }&su=${email.subject}&body=${encodeURIComponent(email.body)}`}
+              }&cc=${encodeURIComponent(email.cc)}&su=${email.subject}&body=${encodeURIComponent(email.body)}`}
               target="_blank"
               rel="noopener noreferrer">
               Report Inactive

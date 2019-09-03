@@ -31,13 +31,13 @@
 
 .handicap-section {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .feedback-section {
   display: flex;
   font-weight: bold;
-  justify-content: start;
+  justify-content: flex-start;
   a {
     color: white;
     text-decoration: none;
