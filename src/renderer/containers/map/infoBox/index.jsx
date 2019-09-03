@@ -40,7 +40,7 @@ export default class InfoBox extends React.Component {
         details.name
       }\n\t${details.address1}\n\t${details.address2}\n\tPhone: ${
         details.areaCode
-      }${details.phoneNumber}`,
+      }${details.phoneNumber}\n\nDataset: https://discovery.smartcolumbusos.com/dataset/handson_central_ohio/570a8e02_fb0e_4cee_895b_3b32bd740650`,
     };
     return (
       <div className="info-box">
