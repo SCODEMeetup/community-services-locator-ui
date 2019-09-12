@@ -14,7 +14,7 @@
 3. clone the code base
 4. run the following command `npm i` - installs all node dependencies
 5. follow the instructions [here](https://developers.google.com/maps/gmp-get-started#quickstart) to set up a new Google Maps project, including creating an API key
-6. add the API key as an environment variable: `export MAP_KEY=[your-api-key]`
+6. Copy the `.env.example` file and rename it to `.env`. Make sure `MAP_KEY` is set to your new Google Maps API Key.
 7. to start locally run the following command `npm run dev`
 8. navigate to [localhost:3000](http://localhost:3000/)
 
