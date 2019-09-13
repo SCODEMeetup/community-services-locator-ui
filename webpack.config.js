@@ -2,15 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 
 const Dotenv = require('dotenv-webpack');
-const dotenv = require('dotenv');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEFAULT_PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const PROTOCOL = process.env.HTTPS === 'true' ? 'https' : 'http';
-
-dotenv.config();
 
 // I am hoping these get cleaned up for webpack 4
 // or is no longer needed for a css chunk in the future of webpack
@@ -118,12 +115,6 @@ module.exports = ({ prod } = {}) => {
           ]
         : [new webpack.HotModuleReplacementPlugin()]),
       // extractCSS,
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          MAP_KEY: JSON.stringify(process.env.MAP_KEY),
-        },
-      }),
       new HtmlWebpackPlugin({
         fileName: 'index.html',
         template: './src/renderer/index.html',
@@ -132,7 +123,7 @@ module.exports = ({ prod } = {}) => {
       new Dotenv({
         path: prod
           ? path.resolve(__dirname, '.env.production')
-          : path.resolve(__dirname, '.env.development'),
+          : path.resolve(__dirname, '.env'),
       }),
     ],
     resolve: {
