@@ -8,35 +8,31 @@ import {
 } from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
+import { API_URL, FOOD_CAT_ID } from 'redux-modules/services/constants';
 
 const LIMIT = 2000;
 
 export function getServices(taxId = 10) {
-  return dispatch => {
+  return dispatch =>
     dispatch(
-      requestUrl(
-        `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`,
-        GET,
-        {
-          successToast: 'successfully grabbed services',
-          errorToast: 'failed to fetch services',
-        }
-      )
-    )
-      .then(response => {
-        return dispatch(setstate(response, menu));
+      requestUrl(`${API_URL}/taxonomy/${taxId}/children`, GET, {
+        successToast: 'successfully grabbed services',
+        errorToast: 'failed to fetch services',
       })
+    )
+      .then(response => dispatch(setstate(response, menu)))
       .catch(console.error);
-  };
 }
 
 export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
-    let uri = `https://mofb-api.appspot.com/api/v2/taxonomy/${taxId}/children`;
-    if (taxId === '11') {
-      uri = `https://mofb-api.appspot.com/api/v2/taxonomy/food`;
-    }
-    dispatch(
+    let uri = `${API_URL}/taxonomy`;
+
+    // we have a dedicated API route for the food category
+    // all others we pass the ID and get the children
+    uri += taxId === FOOD_CAT_ID ? '/food' : `/${taxId}/children`;
+
+    return dispatch(
       requestUrl(uri, GET, {
         successToast: 'successfully grabbed services',
         errorToast: 'failed to fetch services',
@@ -55,17 +51,19 @@ export function getServiceChildren(taxId) {
   };
 }
 
-export function getSpecificLocations(taxId, agencyId, showMarkers) {
-  return (dispatch, getState) => {
+export function getSpecificLocations(taxId, agencyIds, showMarkers) {
+  return (dispatch, getState) =>
     dispatch(
-      requestUrl(
-        `https://mofb-api.appspot.com/api/v2/location?taxonomyId=${taxId}&agencyId=${agencyId.toString()}&limit=${LIMIT}`,
-        GET,
-        {
-          successToast: 'successfully grabbed locations',
-          errorToast: 'failed to fetch locations',
-        }
-      )
+      requestUrl(`${API_URL}/location`, GET, {
+        qs: {
+          taxonomyId: taxId,
+          agencyId:
+            agencyIds.join !== undefined ? agencyIds.join(',') : agencyIds,
+          limit: LIMIT,
+        },
+        successToast: 'successfully grabbed locations',
+        errorToast: 'failed to fetch locations',
+      })
     )
       .then(response => {
         let currentMarkers = [];
@@ -85,27 +83,25 @@ export function getSpecificLocations(taxId, agencyId, showMarkers) {
         );
       })
       .catch(console.error);
-  };
 }
 
 export function getServiceLocations(taxId, showMarkers) {
-  return dispatch => {
+  return dispatch =>
     dispatch(
-      requestUrl(
-        `https://mofb-api.appspot.com/api/v2/agency?taxonomyId=${taxId}&limit=${LIMIT}`,
-        GET,
-        {
-          successToast: 'successfully grabbed locations',
-          errorToast: 'failed to fetch locations',
-        }
-      )
+      requestUrl(`${API_URL}/agency`, GET, {
+        qs: {
+          taxonomyId: taxId,
+          limit: LIMIT,
+        },
+        successToast: 'successfully grabbed locations',
+        errorToast: 'failed to fetch locations',
+      })
     )
       .then(response => {
         const agencyIds = pluck('id', response);
         return dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
       })
       .catch(console.error);
-  };
 }
 
 export default {
