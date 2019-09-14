@@ -115,12 +115,6 @@ module.exports = ({ prod } = {}) => {
           ]
         : [new webpack.HotModuleReplacementPlugin()]),
       // extractCSS,
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          MAP_KEY: JSON.stringify(process.env.MAP_KEY),
-        },
-      }),
       new HtmlWebpackPlugin({
         fileName: 'index.html',
         template: './src/renderer/index.html',
@@ -129,7 +123,7 @@ module.exports = ({ prod } = {}) => {
       new Dotenv({
         path: prod
           ? path.resolve(__dirname, '.env.production')
-          : path.resolve(__dirname, '.env.development'),
+          : path.resolve(__dirname, '.env'),
       }),
     ],
     resolve: {
