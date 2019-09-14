@@ -5,6 +5,7 @@ import {
   markers,
   menu,
   openCategory,
+  openSubCategory,
 } from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
@@ -77,7 +78,7 @@ export function getSpecificLocations(taxId, agencyIds, showMarkers) {
         } else {
           currentMarkers = without(response, select(markers, getState()));
         }
-
+        dispatch(setstate(taxId, openSubCategory));
         return dispatch(
           setstate(uniqBy(item => item.id, currentMarkers), markers)
         );

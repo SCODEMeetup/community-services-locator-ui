@@ -4,6 +4,7 @@ export const menu = [...services, 'menu'];
 export const children = [...services, 'children'];
 export const selectedServices = [...services, 'selectedServices'];
 export const openCategory = [...services, 'openCategory'];
+export const openSubCategory = [...services, 'openSubCategory'];
 
 export default {
   children,
@@ -11,5 +12,6 @@ export default {
   menu,
   selectedServices,
   openCategory,
+  openSubCategory,
   services,
 };
