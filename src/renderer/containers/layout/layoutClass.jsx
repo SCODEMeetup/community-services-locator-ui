@@ -13,15 +13,13 @@ import {
   DISABLE_INNER_MAIN,
   NO_LOAD,
 } from 'redux-modules/layout/loading/constants';
-import { HOME } from 'redux-modules/router/constants';
+import { ROUTE_CHOOSE_CATEGORY } from 'redux-modules/router/constants';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Drawer from 'react-toolbox/lib/drawer';
 
 import Toast from 'containers/toast';
 import ErrorBoundary from 'containers/errorBoundary';
-// import Toast from 'containers/toast';
-
 import scenes from 'scenes';
 import DrawerContents from './standardLeftDrawer';
 
@@ -29,7 +27,8 @@ import './layout.scss';
 
 class Layout extends React.Component {
   static defaultProps = {
-    route: { name: HOME, params: {} },
+    route: { name: ROUTE_CHOOSE_CATEGORY, params: {} },
+    openCategory: null,
   };
 
   static propTypes = {
@@ -39,7 +38,7 @@ class Layout extends React.Component {
     getServices: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    openCategory: PropTypes.string.isRequired,
+    openCategory: PropTypes.string,
     menu: PropTypes.array.isRequired,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,

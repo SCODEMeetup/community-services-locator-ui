@@ -1,11 +1,17 @@
+@import '../../../../scss/variables';
+
 .left-drawer {
+  padding-top: #{$navbar-height + $container-padding}px;
   font-size: 0.9rem;
   .category {
     font-size: 0.7rem;
   }
   .subItems {
-    padding-left: 15%;
+    padding-left: #{$container-padding}px;
     margin-top: 5%;
+    &:first-child {
+      margin-top: 0;
+    }
     [data-react-toolbox='checkbox'] {
       [data-react-toolbox='label'] {
         font-size: 0.7rem;

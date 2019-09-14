@@ -4,8 +4,8 @@ import { actions as routerActions } from 'redux-router5';
 import { resetToast } from 'redux-modules/layout/toast/thunks';
 import { select, setstate } from 'redux-modules/general';
 
-import { lastMainRoute, lastMainRouteName } from 'redux-modules/router/paths';
-import { HOME } from 'redux-modules/router/constants';
+import { lastMainRoute } from 'redux-modules/router/paths';
+import { ROUTE_VIEW_MAP } from 'redux-modules/router/constants';
 
 export function goTo(scene, params = {}) {
   return dispatch =>
@@ -22,7 +22,7 @@ export function returnFromRoute() {
   return (dispatch, getState) =>
     new Promise(resolve => {
       const lastMainRouteInfo = select(lastMainRoute, getState()) || {
-        name: HOME,
+        name: ROUTE_VIEW_MAP,
       };
       resolve(dispatch(goTo(lastMainRouteInfo.name, lastMainRouteInfo.params)));
     });

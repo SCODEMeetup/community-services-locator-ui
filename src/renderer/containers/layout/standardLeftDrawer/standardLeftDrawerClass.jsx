@@ -7,10 +7,14 @@ import Checkbox from 'react-toolbox/lib/checkbox';
 import { selectedServices } from 'redux-modules/services/paths';
 
 export default class StandardLeftDrawer extends React.Component {
+  static defaultProps = {
+    openCategory: null,
+  };
+
   static propTypes = {
     children: PropTypes.object.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
-    openCategory: PropTypes.string.isRequired,
+    openCategory: PropTypes.string,
     selectedServices: PropTypes.object.isRequired,
     set: PropTypes.func.isRequired,
   };
@@ -85,7 +89,7 @@ export default class StandardLeftDrawer extends React.Component {
     return (
       <Flexbox
         key="selectAll"
-        className="subItems"
+        className="subItems mb15"
         justifyContent="flex-start"
         alignItems="center">
         <Checkbox

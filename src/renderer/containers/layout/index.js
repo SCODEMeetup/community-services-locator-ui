@@ -8,6 +8,7 @@ import {
   children,
   menu,
   openCategory,
+  openSubCategory,
   selectedServices,
 } from 'redux-modules/services/paths';
 import {
@@ -27,6 +28,7 @@ const mapStateToProps = state => ({
   isOpen: select(isOpen, state),
   menu: select(menu, state),
   openCategory: select(openCategory, state),
+  openSubCategory: select(openSubCategory, state),
   route: select(route, state),
   showLoading: select(showLoading, state),
   selectedServices: select(selectedServices, state),
