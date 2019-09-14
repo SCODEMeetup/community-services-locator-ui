@@ -40,7 +40,9 @@ export default class InfoBox extends React.Component {
         details.name
       }\n\t${details.address1}\n\t${details.address2}\n\tPhone: ${
         details.areaCode
-      }${details.phoneNumber}\n\nDataset: https://discovery.smartcolumbusos.com/dataset/handson_central_ohio/570a8e02_fb0e_4cee_895b_3b32bd740650`,
+      }${
+        details.phoneNumber
+      }\n\nDataset: https://discovery.smartcolumbusos.com/dataset/handson_central_ohio/570a8e02_fb0e_4cee_895b_3b32bd740650`,
     };
     return (
       <div className="info-box">
@@ -50,7 +52,7 @@ export default class InfoBox extends React.Component {
             {details.address1}
             <br />
             {details.address2}
-          </a> 
+          </a>
           <a
             href={`tel:${replace(/-/g, '', details.areaCode)}${replace(
               /-/g,
@@ -86,7 +88,9 @@ export default class InfoBox extends React.Component {
               className="mail"
               href={`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${
                 email.to
-              }&cc=${encodeURIComponent(email.cc)}&su=${email.subject}&body=${encodeURIComponent(email.body)}`}
+              }&cc=${encodeURIComponent(email.cc)}&su=${
+                email.subject
+              }&body=${encodeURIComponent(email.body)}`}
               target="_blank"
               rel="noopener noreferrer">
               Report Inactive
