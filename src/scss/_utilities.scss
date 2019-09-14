@@ -1,0 +1,91 @@
+@import 'variables';
+
+@for $z from 1 through 24 {
+  .shadow-#{$z} {
+    box-shadow: map-get($shadows, shadow-#{$z});
+  }
+}
+
+.muted {
+  opacity: 0.5;
+}
+
+.max-width {
+  p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.line-height-1 {
+  line-height: 1;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.min-height-100 {
+  min-height: 100%;
+}
+
+.no-height {
+  height: unset !important;
+}
+
+.no-width {
+  width: unset !important;
+}
+
+.wrap-lines {
+  white-space: pre-wrap !important;
+}
+
+.rounded {
+  border-radius: $border-radius;
+}
+
+.z-fixed {
+  z-index: 1;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-big {
+  font-size: 120%;
+}
+
+.text-small {
+  font-size: 80%;
+}
