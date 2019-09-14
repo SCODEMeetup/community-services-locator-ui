@@ -1,10 +1,16 @@
+@import '../../../scss/zindex';
+@import '../../../scss/variables';
+
 .appBar {
-  background-color: black;
-  border-bottom: 1px #e0e0e0 solid;
-  position: relative;
+  background: black !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-navbar;
   padding-right: 0;
   padding-left: 0;
-  height: 4rem;
+  height: #{$navbar-height}px;
   transition: height 0.4s;
   color: white;
   &.-hide {
