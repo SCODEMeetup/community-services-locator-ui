@@ -1,13 +1,13 @@
 {
-  "name": "Simple app",
+  "name": "Community Helper",
   "icons": [
     {
-      "src": "/android-chrome-72x72.png",
+      "src": "/logo-72.png",
       "sizes": "72x72",
       "type": "image/png"
     }
   ],
-  "theme_color": "#311b92",
-  "background_color": "#311b92",
+  "theme_color": "#1E76FF",
+  "background_color": "#1E76FF",
   "display": "standalone"
 }
