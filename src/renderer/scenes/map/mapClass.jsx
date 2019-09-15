@@ -10,8 +10,8 @@ export default class Home extends React.Component {
   };
 
   componentDidMount() {
-    const route = router.getState()
-    const { sub } = route.params
+    const route = router.getState();
+    const { sub } = route.params;
     if (sub) {
       this.props.getServiceLocations(sub, true);
     }
