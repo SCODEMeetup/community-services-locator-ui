@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { take } from 'ramda';
 import { randomNumberBetween } from 'src/utils';
 import { CATEGORY_LABELS } from 'redux-modules/services/constants';
-import App, { router } from 'src/renderer';
+import { router, store } from 'src/renderer';
 import { ROUTE_VIEW_MAP } from 'redux-modules/router/constants';
 import { setstate } from 'redux-modules/general';
 import { markers, selectedServices } from 'redux-modules/services/paths';
@@ -68,8 +68,6 @@ export default class ChooseCategory extends React.Component {
   }
 
   chooseSubCategory(id) {
-    const { store } = App;
-
     // clear old markers and selected services
     store.dispatch(
       setstate(
