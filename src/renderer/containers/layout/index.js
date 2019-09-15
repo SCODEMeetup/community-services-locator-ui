@@ -6,7 +6,6 @@ import { loadingType, showLoading } from 'redux-modules/layout/loading/paths';
 import { isOpen } from 'redux-modules/layout/drawer/paths';
 import {
   children,
-  menu,
   openCategory,
   openSubCategory,
   selectedServices,
@@ -26,7 +25,6 @@ const mapStateToProps = state => ({
   children: select(children, state),
   loadingType: select(loadingType, state),
   isOpen: select(isOpen, state),
-  menu: select(menu, state),
   openCategory: select(openCategory, state),
   openSubCategory: select(openSubCategory, state),
   route: select(route, state),

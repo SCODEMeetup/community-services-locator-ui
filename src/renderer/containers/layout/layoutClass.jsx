@@ -39,19 +39,12 @@ class Layout extends React.Component {
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
     openCategory: PropTypes.string,
-    menu: PropTypes.array.isRequired,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,
     selectedServices: PropTypes.object.isRequired,
     setstate: PropTypes.func.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-
-    props.getServices();
-  }
 
   _getView() {
     const viewClassNames = [
