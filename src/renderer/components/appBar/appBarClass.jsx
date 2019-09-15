@@ -6,14 +6,14 @@ import Button from 'components/button';
 
 import { concatClasses } from 'redux-modules/general/utils';
 
-import {router} from 'src/renderer';
+import { router } from 'src/renderer';
+import { CATEGORY_LABELS } from 'redux-modules/services/constants';
 
 export default class CustomAppBar extends React.Component {
   static defaultProps = {
     children: '',
     openCategory: null,
     openSubCategory: null,
-    menu: [],
     openDrawer: () => {},
     getServiceChildren: () => {},
     selectedServices: {},
@@ -27,7 +27,6 @@ export default class CustomAppBar extends React.Component {
       PropTypes.string,
     ]),
     getServiceChildren: PropTypes.func,
-    menu: PropTypes.array,
     openDrawer: PropTypes.func,
     openCategory: PropTypes.string,
     openSubCategory: PropTypes.string,
@@ -36,47 +35,38 @@ export default class CustomAppBar extends React.Component {
     tall: PropTypes.bool,
   };
 
+  _renderCategories = () => {
+    const {
+      getServiceChildren,
+      openDrawer,
+      selectedServices,
+      openCategory,
+    } = this.props;
+
+    return (
+      <Button
+        color="white"
+        onClick={() => {
+          getServiceChildren(openCategory);
+          openDrawer();
+        }}>
+        CHOOSE {CATEGORY_LABELS[openCategory].toUpperCase()} SERVICES
+        {selectedServices[openCategory] && Object.keys(selectedServices[openCategory]).length > 0
+          ? ` (${Object.keys(selectedServices[openCategory]).length})`
+          : null}
+      </Button>
+    );
+  };
+
+  // eslint-disable-next-line class-methods-use-this
   routeNotDefault() {
     return router.getState().name !== router.getOptions().defaultRoute;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   goBack() {
     window.history.back();
   }
-
-  _renderCategories = () => {
-    const categories = [];
-    const {
-      getServiceChildren,
-      menu,
-      openDrawer,
-      selectedServices,
-    } = this.props;
-
-    if (menu.length > 0) {
-      menu.forEach(item => {
-        if (item.id === '30' || item.id === '139' || item.id === '11') {
-          // eslint-disable-next-line react/button-has-type
-          categories.push(
-            <Button
-              key={item.id}
-              color="white"
-              onClick={() => {
-                getServiceChildren(item.id);
-                openDrawer();
-              }}>
-              {item.description}{' '}
-              {selectedServices[item.id] &&
-              Object.keys(selectedServices[item.id]).length > 0
-                ? `(${Object.keys(selectedServices[item.id]).length})`
-                : null}
-            </Button>
-          );
-        }
-      });
-    }
-    return categories;
-  };
 
   render() {
     const classNames = [
@@ -93,7 +83,7 @@ export default class CustomAppBar extends React.Component {
           </Button>
         ) : null}
         <Icon icon="logo" size="xlg" className="logo" />
-        {this._renderCategories()}
+        {this.props.openCategory ? this._renderCategories() : null}
       </AppBar>
     );
   }
