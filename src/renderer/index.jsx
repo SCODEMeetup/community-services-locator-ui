@@ -13,7 +13,7 @@ import configureStore from './redux/configureStore';
 export const router = createRouter(routes, { defaultRoute: ROUTE_CHOOSE_CATEGORY })
   .usePlugin(browserPlugin());
 
-const store = configureStore(router);
+export const store = configureStore(router);
 
 const render = (Component) => {
   router.start(() => {
