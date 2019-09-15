@@ -6,6 +6,9 @@ import { omit } from 'ramda';
 import Checkbox from 'react-toolbox/lib/checkbox';
 import { selectedServices } from 'redux-modules/services/paths';
 
+import { router } from 'src/renderer';
+import { ROUTE_VIEW_MAP } from 'redux-modules/router/constants';
+
 export default class StandardLeftDrawer extends React.Component {
   static defaultProps = {
     openCategory: null,
@@ -65,7 +68,6 @@ export default class StandardLeftDrawer extends React.Component {
   };
 
   _getServices = (child, value, services = {}) => {
-    // console.log('value', value);
     const taxId = this.props.openCategory;
     this.props.getServiceLocations(child.id, value);
     let taxSpread = services[taxId];
@@ -82,6 +84,12 @@ export default class StandardLeftDrawer extends React.Component {
       ...services,
       [taxId]: taxSpread,
     };
+
+    router.navigate(ROUTE_VIEW_MAP, {
+      cat: this.props.openCategory,
+      sub: child.id,
+    });
+
     return updateData;
   };
 
@@ -98,12 +106,12 @@ export default class StandardLeftDrawer extends React.Component {
           onChange={value => {
             this.setState(prev => ({ allChecked: !prev.allChecked }));
             const taxId = this.props.openCategory;
-            const filteredItems = this.props.children[taxId] || [];
-            let data = this.props.selectedServices;
-            filteredItems.forEach(child => {
-              data = this._getServices(child, value, data);
+            const filteredChildren = this.props.children[taxId] || [];
+            let services = this.props.selectedServices;
+            filteredChildren.forEach(child => {
+              services = this._getServices(child, value, services);
             });
-            this.props.set(data, selectedServices);
+            this.props.set(services, selectedServices);
           }}
         />
       </Flexbox>
