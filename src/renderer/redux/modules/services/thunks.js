@@ -27,6 +27,14 @@ export function getServices(taxId = 10) {
 
 export function getServiceChildren(taxId) {
   return (dispatch, getState) => {
+    // check if the children have already been retrieved first
+    let currentChildren = { ...select(children, getState()) };
+
+    if (currentChildren[taxId] && currentChildren[taxId].length) {
+      dispatch(setstate(taxId, openCategory));
+      return Promise.resolve(currentChildren[taxId]);
+    }
+
     let uri = `${API_URL}/taxonomy`;
 
     // we have a dedicated API route for the food category
@@ -40,8 +48,9 @@ export function getServiceChildren(taxId) {
       })
     )
       .then(response => {
-        const currentChildren = {
-          ...select(children, getState()),
+        // add the child services to the current children
+        currentChildren = {
+          ...currentChildren,
           [taxId]: response,
         };
 
