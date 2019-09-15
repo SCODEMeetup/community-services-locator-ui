@@ -2,10 +2,19 @@ import React from 'react';
 import Button from 'components/button';
 import { CATEGORY_LABELS } from 'redux-modules/services/constants';
 
-import { router } from 'src/renderer';
+import App, { router } from 'src/renderer';
 import { ROUTE_CHOOSE_SUB_CATEGORY } from 'redux-modules/router/constants';
+import { openCategory } from 'redux-modules/services/paths';
+import { setstate } from 'redux-modules/general';
 
 export default class ChooseCategory extends React.Component {
+  componentDidMount() {
+    // reset openCategory
+    const { store } = App;
+
+    store.dispatch(setstate('', openCategory));
+  }
+
   // eslint-disable-next-line class-methods-use-this
   chooseCategory(id) {
     router.navigate(ROUTE_CHOOSE_SUB_CATEGORY, {
