@@ -89,7 +89,11 @@ const MapComponent = compose(
         </Marker>
       ))}
     {props.showCenterMarker && (
-      <Marker position={props.mapCenter} icon={{url: '/location-icon.svg', labelOrigin: {x:10,y:-10}}} label="My Location"/>
+      <Marker
+        position={props.mapCenter}
+        icon={{ url: '/location-icon.svg', labelOrigin: { x: 10, y: -10 } }}
+        label="My Location"
+      />
     )}
   </GoogleMap>
 ));
