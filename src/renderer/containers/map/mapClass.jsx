@@ -15,6 +15,11 @@ const MapComponent = compose(
   withStateHandlers(
     () => ({
       isOpen: null,
+      mapCenter: {
+        lat: 39.9611755,
+        lng: -82.99879420000002,
+      },
+      showCenterMarker: false,
     }),
     {
       onToggleOpen: ({ isOpen }) => id => ({
@@ -39,13 +44,28 @@ const MapComponent = compose(
         },
       });
     },
+    componentDidMount() {
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            const position = {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude,
+            };
+            this.setState({
+              mapCenter: position,
+              showCenterMarker: true,
+            });
+          },
+          err => console.error('Could not get current location', err)
+        );
+      }
+    },
   }),
   withScriptjs,
   withGoogleMap
-)((props) => (
-  <GoogleMap
-    defaultZoom={14}
-    defaultCenter={{ lat: 39.9611755, lng: -82.99879420000002 }}>
+)(props => (
+  <GoogleMap defaultZoom={14} defaultCenter={props.mapCenter}>
     {props.isMarkerShown &&
       props.markers.map(marker => (
         <Marker
@@ -68,6 +88,9 @@ const MapComponent = compose(
           )}
         </Marker>
       ))}
+    {props.showCenterMarker && (
+      <Marker position={props.mapCenter} icon={{url: '/location-icon.svg', labelOrigin: {x:10,y:-10}}} label="My Location"/>
+    )}
   </GoogleMap>
 ));
 
