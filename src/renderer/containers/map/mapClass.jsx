@@ -107,25 +107,11 @@ class MapClass extends React.Component {
     markers: [],
   };
 
-  state = {
-    isMarkerShown: false,
-  };
-
-  componentDidMount() {
-    this.delayedShowMarker();
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true });
-    }, 3000);
-  };
-
   render() {
     return (
       <MapComponent
         className="map-component"
-        isMarkerShown={this.state.isMarkerShown}
+        isMarkerShown
         markers={this.props.markers}
       />
     );
