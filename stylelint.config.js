@@ -1,5 +1,3 @@
-const { order } = require('cx-olive-style-core/lib/stylelintOrder');
-
 module.exports = {
   plugins: ['stylelint-scss', 'stylelint-order'],
   extends: ['stylelint-config-standard', 'stylelint-config-css-modules'],
@@ -152,7 +150,6 @@ module.exports = {
     'value-list-comma-space-before': 'never',
     'value-list-max-empty-lines': 0,
     'value-no-vendor-prefix': true,
-    'order/order': order,
     'order/properties-alphabetical-order': true,
   },
 };

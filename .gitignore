@@ -60,8 +60,9 @@ typings/
 # next.js build output
 .next
 
-# ignore vscode
+# ignore vscode and idea
 .vscode
+.idea
 
 # ignore dist folder for build
 dist

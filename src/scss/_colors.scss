@@ -1,0 +1,53 @@
+@import 'variables';
+
+.bg-primary {
+  background: $primary-color !important;
+}
+
+.bg-primary-dark {
+  background: $primary-color-dark !important;
+}
+
+.bg-accent {
+  background: $accent-color !important;
+}
+
+.bg-accent-dark {
+  background: $accent-dark-color !important;
+}
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-primary-dark {
+  color: $primary-color-dark !important;
+}
+
+.text-accent {
+  color: $accent-color !important;
+}
+
+.text-accent-dark {
+  color: $accent-dark-color !important;
+}
+
+.text-black {
+  color: #000 !important;
+}
+
+.bg-black {
+  background: #000 !important;
+}
+
+.bg-dark {
+  background: $dark-color !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.bg-white {
+  color: #fff !important;
+}

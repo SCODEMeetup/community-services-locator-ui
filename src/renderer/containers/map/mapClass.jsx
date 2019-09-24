@@ -32,7 +32,7 @@ const MapComponent = compose(
       process.env.MAP_KEY
     }&callback=initMap&libraries=places`,
     loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '98%', width: '100%' }} />,
+    containerElement: <div style={{ height: '100%', width: '100%' }} />,
     mapElement: <div style={{ height: '100%' }} />,
   }),
   lifecycle({

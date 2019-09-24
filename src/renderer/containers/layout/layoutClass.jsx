@@ -13,15 +13,13 @@ import {
   DISABLE_INNER_MAIN,
   NO_LOAD,
 } from 'redux-modules/layout/loading/constants';
-import { HOME } from 'redux-modules/router/constants';
+import { ROUTE_CHOOSE_CATEGORY } from 'redux-modules/router/constants';
 
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Drawer from 'react-toolbox/lib/drawer';
 
 import Toast from 'containers/toast';
 import ErrorBoundary from 'containers/errorBoundary';
-// import Toast from 'containers/toast';
-
 import scenes from 'scenes';
 import DrawerContents from './standardLeftDrawer';
 
@@ -29,7 +27,8 @@ import './layout.scss';
 
 class Layout extends React.Component {
   static defaultProps = {
-    route: { name: HOME, params: {} },
+    route: { name: ROUTE_CHOOSE_CATEGORY, params: {} },
+    openCategory: null,
   };
 
   static propTypes = {
@@ -39,20 +38,13 @@ class Layout extends React.Component {
     getServices: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    openCategory: PropTypes.string.isRequired,
-    menu: PropTypes.array.isRequired,
+    openCategory: PropTypes.string,
     route: PropTypes.object,
     showLoading: PropTypes.bool.isRequired,
     selectedServices: PropTypes.object.isRequired,
     setstate: PropTypes.func.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-
-    props.getServices();
-  }
 
   _getView() {
     const viewClassNames = [

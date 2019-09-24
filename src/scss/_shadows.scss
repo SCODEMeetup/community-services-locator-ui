@@ -1,0 +1,7 @@
+@import 'variables';
+
+@for $z from 1 through 24 {
+  .shadow-#{$z} {
+    box-shadow: map-get($shadows, shadow-#{$z});
+  }
+}

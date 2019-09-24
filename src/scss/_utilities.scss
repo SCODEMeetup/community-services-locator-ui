@@ -1,0 +1,37 @@
+@import 'variables';
+
+.muted {
+  opacity: 0.5;
+}
+
+.max-width {
+  p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.min-height-100 {
+  min-height: 100%;
+}
+
+.no-height {
+  height: unset !important;
+}
+
+.no-width {
+  width: unset !important;
+}
+
+.rounded {
+  border-radius: $border-radius;
+}

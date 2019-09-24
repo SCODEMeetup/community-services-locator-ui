@@ -7,6 +7,7 @@ import Layout from 'containers/layout';
 
 import './fonts/ProximaNova/stylesheet.scss';
 import './fonts/MaterialIcons/stylesheet.scss';
+import '../../../scss/styles.scss';
 
 export default (store, router) => (
   <AppContainer>

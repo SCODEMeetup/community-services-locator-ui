@@ -3,5 +3,6 @@ export default {
   markers: [],
   menu: [],
   selectedServices: {},
-  openCategory: '',
+  openCategory: null,
+  openSubCategory: null,
 };
