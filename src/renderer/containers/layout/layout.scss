@@ -1,7 +1,5 @@
 @import '../../../scss/variables';
 
-$padding: 15;
-
 .layout {
   height: unset;
   min-height: 100vh;
@@ -27,7 +25,6 @@ $padding: 15;
     }
 
     .main-container {
-      //height: 100%;
       opacity: 1;
       transform: translateZ(0);
       transition: all 0.5s ease;
@@ -49,7 +46,7 @@ $padding: 15;
           width: 100%;
 
           &.layout-padding {
-            padding: #{$padding}px;
+            padding: #{$main-layout-padding}px;
           }
         }
       }
