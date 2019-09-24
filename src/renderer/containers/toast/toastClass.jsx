@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Snackbar } from 'react-toolbox';
+import { Snackbar } from 'react-toolbox/lib';
 
 import './toast.scss';
 
 export default class Toast extends React.Component {
   static defaultProps = {
     toast: {},
-  }
+  };
 
   static propTypes = {
     resetToast: PropTypes.func.isRequired,
@@ -19,13 +19,7 @@ export default class Toast extends React.Component {
   }
 
   render() {
-    const {
-      buttonText,
-      buttonType,
-      content,
-      show,
-      timeout,
-    } = this.props.toast;
+    const { buttonText, buttonType, content, show, timeout } = this.props.toast;
 
     return (
       <section>
