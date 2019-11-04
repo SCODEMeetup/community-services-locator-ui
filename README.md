@@ -8,15 +8,30 @@
 4. [Introduction website](https://scodemeetup.github.io/locator-jekyll/)
 
 ## Steps to start developing
+There are two options available to begin working on the Community Services Locator UI project. The first option is to install nvm (node) locally on your machine, install node 10, and follow other various steps to get setup. This option does not require docker to be installed on your local environment.
 
-1. download [nvm](https://github.com/creationix/nvm)
-2. Install node 10
-3. clone the code base
-4. run the following command `npm i` - installs all node dependencies
-5. follow the instructions [here](https://developers.google.com/maps/gmp-get-started#quickstart) to set up a new Google Maps project, including creating an API key
-6. Copy the `.env.example` file and rename it to `.env`. Make sure `MAP_KEY` is set to your new Google Maps API Key.
-7. to start locally run the following command `npm run dev`
-8. navigate to [localhost:3000](http://localhost:3000/)
+The other option available is to run the application using a Docker container.
+
+The first thing to do regardless of the direction you decide to go is to follow the steps outlined in the **Common Setup Steps** section.
+
+### Common Setup Steps
+1. Clone the code base.
+2. `cd` into the root of the directory for this project (i.e., the directory this README.md file is in).
+3. Follow the instructions [here](https://developers.google.com/maps/gmp-get-started#quickstart) to set up a new Google Maps project, including creating an API key.
+4. Run the command `cp .env.example .env`.
+5. Edit the .env file, changing the `MAP_KEY` value to your Google Maps API key.
+
+### Manual Development Environment Setup
+1. Download [nvm](https://github.com/creationix/nvm).
+2. Install node 10.
+3. Run the following command `npm i` - installs all node dependencies.
+4. To start locally run the following command `npm run dev`.
+
+### Dockerized Development Environment Setup
+1. Install Docker Community Edition (CE) for your development environment. [Windows](https://docs.docker.com/docker-for-windows/install/) | [Mac](https://docs.docker.com/docker-for-mac/install)
+2. From the root of the project (i.e. the directory this README file is in), run the command `cd docker-development-env && make install && cd..`.
+
+After following either of the setup instructions above, **you will be able to access the application by navigating to [http://localhost:3000](http://localhost:3000).**
 
 #### Setting up `.env`
 
@@ -135,7 +150,7 @@ Wrap text with line breaks
 
 ### Margin/Padding
 
-There are margin and padding helpers for the following pixel counts:  
+There are margin and padding helpers for the following pixel counts:
 `0, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 150, 200, 300`
 
 To give an element a margin on all sides just use the helper class `m15` which will add a margin of 15px on each side.
