@@ -63,6 +63,7 @@ typings/
 # ignore vscode and idea
 .vscode
 .idea
+*.iml
 
 # ignore dist folder for build
 dist

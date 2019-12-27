@@ -8,6 +8,9 @@ import { selectedServices } from 'redux-modules/services/paths';
 
 import { router } from 'src/renderer';
 import { ROUTE_VIEW_MAP } from 'redux-modules/router/constants';
+import AnalyticsService from 'src/analytics/AnalyticsService';
+import { ANALYTICS_CATEGORY_MENU } from 'src/analytics/categories';
+import { ANALYTICS_ACTION_DESELECT_SUB_CATEGORY, ANALYTICS_ACTION_SELECT_SUB_CATEGORY } from 'src/analytics/actions';
 
 export default class StandardLeftDrawer extends React.Component {
   static defaultProps = {
@@ -43,6 +46,16 @@ export default class StandardLeftDrawer extends React.Component {
             checked={itemChecked}
             label={child.description}
             onChange={value => {
+              const action =
+                value === null
+                  ? ANALYTICS_ACTION_DESELECT_SUB_CATEGORY
+                  : ANALYTICS_ACTION_SELECT_SUB_CATEGORY;
+
+              AnalyticsService.trackEvent(
+                ANALYTICS_CATEGORY_MENU,
+                action,
+                child.id
+              );
               this.props.set(
                 this._getServices(child, value, this.props.selectedServices),
                 selectedServices
@@ -55,17 +68,15 @@ export default class StandardLeftDrawer extends React.Component {
     return result;
   };
 
-  _renderCategories = () => {
-    return (
-      <Flexbox
-        className="cat-row"
-        flexDirection="column"
-        alignItems="flex-start"
-        justifyContent="center">
-        {this._renderSubCategories(this.props.openCategory)}
-      </Flexbox>
-    );
-  };
+  _renderCategories = () => (
+    <Flexbox
+      className="cat-row"
+      flexDirection="column"
+      alignItems="flex-start"
+      justifyContent="center">
+      {this._renderSubCategories(this.props.openCategory)}
+    </Flexbox>
+  );
 
   _getServices = (child, value, services = {}) => {
     const taxId = this.props.openCategory;
