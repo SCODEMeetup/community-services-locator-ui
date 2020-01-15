@@ -10,6 +10,12 @@ import {
 } from 'react-google-maps';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 import InfoContent from './infoBox';
+import AnalyticsService from 'src/analytics/AnalyticsService';
+import { ANALYTICS_CATEGORY_MAP } from 'src/analytics/categories';
+import {
+  ANALYTICS_ACTION_LOCATION_CLOSE,
+  ANALYTICS_ACTION_LOCATION_OPEN,
+} from 'src/analytics/actions';
 
 const MapComponent = compose(
   withStateHandlers(
@@ -22,9 +28,20 @@ const MapComponent = compose(
       showCenterMarker: false,
     }),
     {
-      onToggleOpen: ({ isOpen }) => id => ({
-        isOpen: id,
-      }),
+      onToggleOpen: ({ isOpen }) => markerId => {
+        const action =
+          markerId === null
+            ? ANALYTICS_ACTION_LOCATION_CLOSE
+            : ANALYTICS_ACTION_LOCATION_OPEN;
+
+        const value = markerId === null ? isOpen : markerId;
+
+        AnalyticsService.trackEvent(ANALYTICS_CATEGORY_MAP, action, value);
+
+        return {
+          isOpen: markerId,
+        };
+      },
     }
   ),
   withProps({

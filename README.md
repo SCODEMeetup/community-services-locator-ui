@@ -8,6 +8,7 @@
 4. [Introduction website](https://scodemeetup.github.io/locator-jekyll/)
 
 ## Steps to start developing
+
 There are two options available to begin working on the Community Services Locator UI project. The first option is to install nvm (node) locally on your machine, install node 10, and follow other various steps to get setup. This option does not require docker to be installed on your local environment.
 
 The other option available is to run the application using a Docker container.
@@ -15,6 +16,7 @@ The other option available is to run the application using a Docker container.
 The first thing to do regardless of the direction you decide to go is to follow the steps outlined in the **Common Setup Steps** section.
 
 ### Common Setup Steps
+
 1. Clone the code base.
 2. `cd` into the root of the directory for this project (i.e., the directory this README.md file is in).
 3. Follow the instructions [here](https://developers.google.com/maps/gmp-get-started#quickstart) to set up a new Google Maps project, including creating an API key.
@@ -22,12 +24,14 @@ The first thing to do regardless of the direction you decide to go is to follow 
 5. Edit the .env file, changing the `MAP_KEY` value to your Google Maps API key.
 
 ### Manual Development Environment Setup
+
 1. Download [nvm](https://github.com/creationix/nvm).
 2. Install node 10.
 3. Run the following command `npm i` - installs all node dependencies.
 4. To start locally run the following command `npm run dev`.
 
 ### Dockerized Development Environment Setup
+
 1. Install Docker Community Edition (CE) for your development environment. [Windows](https://docs.docker.com/docker-for-windows/install/) | [Mac](https://docs.docker.com/docker-for-mac/install)
 2. From the root of the project (i.e. the directory this README file is in), run the command `cd docker-development-env && make install && cd..`.
 
@@ -40,7 +44,12 @@ The `.env` file is a file that is only used in development to set temporary valu
 - `MAP_KEY` Used for the Google Maps API Key
   - default: `null`
 - `API_BASE` Used for the base URL to the Mid-Ohio Food Back API, this can be replaced with `http://localhost:[port]` to use the `mofb-api` that is running on your local machine
+
   - default: `https://mofb-api.appspot.com`
+
+## Accessing Google Analytics
+
+Please contact someone on the `#scode` Slack channel to get access to the Google Analytics. It is by invite only.
 
 ## Navigating the folder structure
 
