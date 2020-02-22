@@ -9,7 +9,7 @@ import {
 } from 'redux-modules/services/paths';
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
-import { API_URL, FOOD_CAT_ID } from 'redux-modules/services/constants';
+import { API_URL } from 'redux-modules/services/constants';
 
 const LIMIT = 2000;
 
@@ -35,11 +35,7 @@ export function getServiceChildren(taxId) {
       return Promise.resolve(currentChildren[taxId]);
     }
 
-    let uri = `${API_URL}/taxonomy`;
-
-    // we have a dedicated API route for the food category
-    // all others we pass the ID and get the children
-    uri += taxId === FOOD_CAT_ID ? '/food' : `/${taxId}/children`;
+    const uri = `${API_URL}/taxonomy/${taxId}/children`;
 
     return dispatch(
       requestUrl(uri, GET, {
@@ -61,14 +57,12 @@ export function getServiceChildren(taxId) {
   };
 }
 
-export function getSpecificLocations(taxId, agencyIds, showMarkers) {
+export function getSpecificLocations(taxId, showMarkers) {
   return (dispatch, getState) =>
     dispatch(
       requestUrl(`${API_URL}/location`, GET, {
         qs: {
           taxonomyId: taxId,
-          agencyId:
-            agencyIds.join !== undefined ? agencyIds.join(',') : agencyIds,
           limit: LIMIT,
         },
         successToast: 'successfully grabbed locations',
@@ -97,21 +91,7 @@ export function getSpecificLocations(taxId, agencyIds, showMarkers) {
 
 export function getServiceLocations(taxId, showMarkers) {
   return dispatch =>
-    dispatch(
-      requestUrl(`${API_URL}/agency`, GET, {
-        qs: {
-          taxonomyId: taxId,
-          limit: LIMIT,
-        },
-        successToast: 'successfully grabbed locations',
-        errorToast: 'failed to fetch locations',
-      })
-    )
-      .then(response => {
-        const agencyIds = pluck('id', response);
-        return dispatch(getSpecificLocations(taxId, agencyIds, showMarkers));
-      })
-      .catch(console.error);
+    dispatch(getSpecificLocations(taxId, showMarkers)).catch(console.error);
 }
 
 export default {
