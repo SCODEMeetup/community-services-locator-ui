@@ -1,13 +1,17 @@
 export const API_BASE = process.env.API_BASE || 'https://mofb-api.appspot.com';
-export const API_PREFIX = '/api/v2';
+export const API_PREFIX = '/api';
 export const API_URL = API_BASE + API_PREFIX;
 
-export const FOOD_CAT_ID = '11';
-export const TRANSPORTATION_CAT_ID = '139';
-export const HOUSING_CAT_ID = '30';
-
+// This is all categories in our current dataset
 export const CATEGORY_LABELS = {
-  [FOOD_CAT_ID]: 'Food',
-  [TRANSPORTATION_CAT_ID]: 'Transportation',
-  [HOUSING_CAT_ID]: 'Housing',
+  566: 'Housing and Utility Assistance',
+  565: 'Health Care',
+  // 561: 'Where to Donate',
+  // 832: 'Advocacy, Planning and Professional Development',
+  563: 'Emergency Food, Clothing, Furniture and Disaster Services',
+  // 562: 'Arts, Education, Employment and Income Support',
+  // 560: 'Adult Care and Youth Programs',
+  // 568: 'Mental Health and Counseling Resources',
+  // 569: 'Seasonal Services',
+  // 570: 'Substance Use Disorder and Addiction Issues',
 };

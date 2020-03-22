@@ -13,9 +13,7 @@ export default class InfoBox extends React.Component {
       address2: '',
       zipCode: '',
       name: 'default Name',
-      areaCode: '614',
-      phoneNumber: '8689394',
-      phoneExtension: null,
+      phones: [],
       handicapAccessFlag: 'Y',
       hours: '24 hours Mon-Sun HandsOn Information and Referral Hotline',
     },
@@ -38,11 +36,11 @@ export default class InfoBox extends React.Component {
       subject: 'Service Location No Longer Active',
       body: `The following service area is no longer active.\n\n\t${
         details.name
-      }\n\t${details.address1}\n\t${details.address2}\n\tPhone: ${
-        details.areaCode
-      }${
-        details.phoneNumber
-      }\n\nDataset: https://discovery.smartcolumbusos.com/dataset/handson_central_ohio/570a8e02_fb0e_4cee_895b_3b32bd740650`,
+      }\n\t${details.address1}\n\t${
+        details.address2
+      }\n\tPhone(s): ${details.phones.join(
+        ', '
+      )}\n\nDataset: https://discovery.smartcolumbusos.com/dataset/handson_central_ohio/community_services_agencies`,
     };
     return (
       <div className="info-box">
@@ -53,16 +51,13 @@ export default class InfoBox extends React.Component {
             <br />
             {details.address2}
           </a>
-          <a
-            href={`tel:${replace(/-/g, '', details.areaCode)}${replace(
-              /-/g,
-              '',
-              details.phoneNumber
-            )}`}
-            className="number">
-            {details.areaCode}
-            {details.phoneNumber}
-          </a>
+          {details.phones.map(phone => (
+            <a
+              href={`tel:${replace(/\D/g, '', phone).substring(0, 10)}`}
+              className="number">
+              {phone}
+            </a>
+          ))}
           {!isNil(details.hours) && (
             <div>
               <hr />
