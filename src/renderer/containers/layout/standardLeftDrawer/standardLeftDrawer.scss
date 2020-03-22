@@ -12,16 +12,13 @@
   .subItems {
     padding-left: $container-padding + 20px;
     margin-top: 5%;
-    &:first-child {
-      margin-top: 0;
-    }
-    [data-react-toolbox='checkbox'] {
-      [data-react-toolbox='label'] {
-        font-size: 0.7rem;
-        width: 90%;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-      }
+  }
+  [data-react-toolbox='checkbox'] {
+    [data-react-toolbox='label'] {
+      font-size: 0.7rem;
+      width: 90%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
     }
   }
 }
