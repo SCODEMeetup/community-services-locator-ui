@@ -10,7 +10,10 @@ import { router } from 'src/renderer';
 import { ROUTE_VIEW_MAP } from 'redux-modules/router/constants';
 import AnalyticsService from 'src/analytics/AnalyticsService';
 import { ANALYTICS_CATEGORY_MENU } from 'src/analytics/categories';
-import { ANALYTICS_ACTION_DESELECT_SUB_CATEGORY, ANALYTICS_ACTION_SELECT_SUB_CATEGORY } from 'src/analytics/actions';
+import {
+  ANALYTICS_ACTION_DESELECT_SUB_CATEGORY,
+  ANALYTICS_ACTION_SELECT_SUB_CATEGORY,
+} from 'src/analytics/actions';
 
 export default class StandardLeftDrawer extends React.Component {
   static defaultProps = {
@@ -80,25 +83,33 @@ export default class StandardLeftDrawer extends React.Component {
 
   _getServices = (child, value, services = {}) => {
     const taxId = this.props.openCategory;
-    this.props.getServiceLocations(child.id, value);
     let taxSpread = services[taxId];
     if (!value) {
       // unchecked, so omit from array.
       taxSpread = omit([child.id], taxSpread);
+      // also mark that everything's no longer selected
+      this.setState(() => ({ allChecked: false }));
     } else {
       taxSpread = {
         ...taxSpread,
         [child.id]: value,
       };
     }
+    return this._updateSubcategories(taxId, taxSpread, services);
+  };
+
+  _updateSubcategories = (taxId, subcategories, services) => {
     const updateData = {
       ...services,
-      [taxId]: taxSpread,
+      [taxId]: subcategories,
     };
+
+    const taxIds = Object.values(updateData).flatMap(s => Object.keys(s));
+    this.props.getServiceLocations(taxIds.join(','), true);
 
     router.navigate(ROUTE_VIEW_MAP, {
       cat: this.props.openCategory,
-      sub: child.id,
+      sub: taxIds,
     });
 
     return updateData;
@@ -108,20 +119,29 @@ export default class StandardLeftDrawer extends React.Component {
     return (
       <Flexbox
         key="selectAll"
-        className="subItems mb15"
+        className="selectAll"
         justifyContent="flex-start"
         alignItems="center">
         <Checkbox
           checked={this.state.allChecked}
-          label="SELECT ALL"
+          label={`${this.state.allChecked ? 'DE' : ''}SELECT ALL`}
           onChange={value => {
             this.setState(prev => ({ allChecked: !prev.allChecked }));
             const taxId = this.props.openCategory;
             const filteredChildren = this.props.children[taxId] || [];
             let services = this.props.selectedServices;
-            filteredChildren.forEach(child => {
-              services = this._getServices(child, value, services);
-            });
+            const subcategories = {};
+            if (value) {
+              filteredChildren.forEach(c => {
+                subcategories[c.id] = true;
+              });
+            }
+
+            services = this._updateSubcategories(
+              taxId,
+              subcategories,
+              services
+            );
             this.props.set(services, selectedServices);
           }}
         />

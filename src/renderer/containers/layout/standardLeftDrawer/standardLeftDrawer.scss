@@ -6,8 +6,11 @@
   .category {
     font-size: 0.7rem;
   }
-  .subItems {
+  .selectAll {
     padding-left: #{$container-padding}px;
+  }
+  .subItems {
+    padding-left: $container-padding + 20px;
     margin-top: 5%;
     &:first-child {
       margin-top: 0;
