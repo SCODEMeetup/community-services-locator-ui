@@ -35,7 +35,7 @@ export default class ChooseCategory extends React.Component {
               key={`cat${id}`}
               onClick={() => this.chooseCategory(id)}
               raised
-              className="jumbo bg-primary text-white mb30">
+              className="jumbo bg-primary text-white wrap-lines mb30">
               {CATEGORY_LABELS[id]}
             </Button>
           ))}
