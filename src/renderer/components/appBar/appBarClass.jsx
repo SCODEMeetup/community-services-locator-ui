@@ -50,7 +50,7 @@ export default class CustomAppBar extends React.Component {
           getServiceChildren(openCategory);
           openDrawer();
         }}>
-        CHOOSE {CATEGORY_LABELS[openCategory].toUpperCase()} SERVICES
+        CHOOSE {CATEGORY_LABELS[openCategory].topBar}
         {selectedServices[openCategory] && Object.keys(selectedServices[openCategory]).length > 0
           ? ` (${Object.keys(selectedServices[openCategory]).length})`
           : null}
