@@ -14,6 +14,7 @@ import {
   ANALYTICS_ACTION_DESELECT_SUB_CATEGORY,
   ANALYTICS_ACTION_SELECT_SUB_CATEGORY,
 } from 'src/analytics/actions';
+import { CATEGORY_LABELS } from 'redux-modules/services/constants';
 
 export default class StandardLeftDrawer extends React.Component {
   static defaultProps = {
@@ -30,44 +31,47 @@ export default class StandardLeftDrawer extends React.Component {
 
   state = { allChecked: false };
 
-  _renderSubCategories = taxId => {
+  _renderSubCategories = () => {
     const result = [];
-    const filteredItems = this.props.children[taxId] || [];
+    const entries = Object.entries(this.props.children);
+    entries.forEach(([taxId, items]) => {
+      result.push(<div key={`tax-${taxId}`}>{CATEGORY_LABELS[taxId]}</div>);
+      items.forEach(child => {
+        const itemChecked = this.props.selectedServices[taxId]
+          ? this.props.selectedServices[taxId][child.id] || false
+          : false;
 
-    filteredItems.forEach(child => {
-      const itemChecked = this.props.selectedServices[taxId]
-        ? this.props.selectedServices[taxId][child.id] || false
-        : false;
+        result.push(
+          <Flexbox
+            key={`subItem-${child.id}`}
+            className="subItems"
+            justifyContent="flex-start"
+            alignItems="center">
+            <Checkbox
+              checked={itemChecked}
+              label={child.description}
+              onChange={value => {
+                const action =
+                  value === null
+                    ? ANALYTICS_ACTION_DESELECT_SUB_CATEGORY
+                    : ANALYTICS_ACTION_SELECT_SUB_CATEGORY;
 
-      result.push(
-        <Flexbox
-          key={`subItem-${child.id}`}
-          className="subItems"
-          justifyContent="flex-start"
-          alignItems="center">
-          <Checkbox
-            checked={itemChecked}
-            label={child.description}
-            onChange={value => {
-              const action =
-                value === null
-                  ? ANALYTICS_ACTION_DESELECT_SUB_CATEGORY
-                  : ANALYTICS_ACTION_SELECT_SUB_CATEGORY;
-
-              AnalyticsService.trackEvent(
-                ANALYTICS_CATEGORY_MENU,
-                action,
-                child.id
-              );
-              this.props.set(
-                this._getServices(child, value, this.props.selectedServices),
-                selectedServices
-              );
-            }}
-          />
-        </Flexbox>
-      );
+                AnalyticsService.trackEvent(
+                  ANALYTICS_CATEGORY_MENU,
+                  action,
+                  child.id
+                );
+                this.props.set(
+                  this._getServices(child, value, this.props.selectedServices),
+                  selectedServices
+                );
+              }}
+            />
+          </Flexbox>
+        );
+      });
     });
+
     return result;
   };
 
@@ -77,7 +81,7 @@ export default class StandardLeftDrawer extends React.Component {
       flexDirection="column"
       alignItems="flex-start"
       justifyContent="center">
-      {this._renderSubCategories(this.props.openCategory)}
+      {this._renderSubCategories()}
     </Flexbox>
   );
 

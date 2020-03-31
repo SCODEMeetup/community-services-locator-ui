@@ -10,6 +10,7 @@ import {
 import { requestUrl } from 'redux-modules/general/request';
 import { GET } from 'redux-modules/general/constants';
 import { API_URL } from 'redux-modules/services/constants';
+import { CATEGORY_LABELS } from 'redux-modules/services/constants';
 
 const LIMIT = 2000;
 
@@ -23,6 +24,14 @@ export function getServices(taxId = 10) {
     )
       .then(response => dispatch(setstate(response, menu)))
       .catch(console.error);
+}
+
+export function getAllServiceChildren() {
+  return dispatch => {
+    Object.keys(CATEGORY_LABELS).forEach(taxId => {
+      dispatch(getServiceChildren(taxId));
+    });
+  };
 }
 
 export function getServiceChildren(taxId) {

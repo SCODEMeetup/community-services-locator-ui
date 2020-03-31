@@ -33,7 +33,7 @@ class Layout extends React.Component {
 
   static propTypes = {
     children: PropTypes.object.isRequired,
-    getServiceChildren: PropTypes.func.isRequired,
+    getAllServiceChildren: PropTypes.func.isRequired,
     getServiceLocations: PropTypes.func.isRequired,
     getServices: PropTypes.func.isRequired,
     loadingType: PropTypes.string.isRequired,
@@ -101,7 +101,7 @@ class Layout extends React.Component {
         <AppBar
           menu={this.props.menu}
           openDrawer={this.props.toggleDrawer}
-          getServiceChildren={taxId => this.props.getServiceChildren(taxId)}
+          getAllServiceChildren={() => this.props.getAllServiceChildren()}
           selectedServices={this.props.selectedServices}
           showAppBar
         />

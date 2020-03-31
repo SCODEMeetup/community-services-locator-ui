@@ -20,6 +20,10 @@ The first thing to do regardless of the direction you decide to go is to follow 
 1. Clone the code base.
 2. `cd` into the root of the directory for this project (i.e., the directory this README.md file is in).
 3. Follow the instructions [here](https://developers.google.com/maps/gmp-get-started#quickstart) to set up a new Google Maps project, including creating an API key.
+
+- Select the Maps Javascript API
+- Create API keys for the Maps Javascript API
+
 4. Run the command `cp .env.example .env`.
 5. Edit the .env file, changing the `MAP_KEY` value to your Google Maps API key.
 

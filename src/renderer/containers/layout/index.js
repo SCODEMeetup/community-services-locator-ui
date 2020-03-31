@@ -11,7 +11,7 @@ import {
   selectedServices,
 } from 'redux-modules/services/paths';
 import {
-  getServiceChildren,
+  getAllServiceChildren,
   getServiceLocations,
   getServices,
 } from 'redux-modules/services/thunks';
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
 
 const actions = {
   getServices,
-  getServiceChildren,
+  getAllServiceChildren,
   getServiceLocations,
   toggleDrawer,
   setstate,

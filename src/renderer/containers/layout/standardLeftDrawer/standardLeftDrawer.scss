@@ -3,6 +3,8 @@
 .left-drawer {
   padding-top: #{$navbar-height + $container-padding}px;
   font-size: 0.9rem;
+  overflow-y: auto;
+
   .category {
     font-size: 0.7rem;
   }

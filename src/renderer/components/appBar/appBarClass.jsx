@@ -15,7 +15,7 @@ export default class CustomAppBar extends React.Component {
     openCategory: null,
     openSubCategory: null,
     openDrawer: () => {},
-    getServiceChildren: () => {},
+    getAllServiceChildren: () => {},
     selectedServices: {},
     tall: false,
   };
@@ -26,7 +26,7 @@ export default class CustomAppBar extends React.Component {
       PropTypes.array,
       PropTypes.string,
     ]),
-    getServiceChildren: PropTypes.func,
+    getAllServiceChildren: PropTypes.func,
     openDrawer: PropTypes.func,
     openCategory: PropTypes.string,
     openSubCategory: PropTypes.string,
@@ -37,7 +37,7 @@ export default class CustomAppBar extends React.Component {
 
   _renderCategories = () => {
     const {
-      getServiceChildren,
+      getAllServiceChildren,
       openDrawer,
       selectedServices,
       openCategory,
@@ -47,11 +47,12 @@ export default class CustomAppBar extends React.Component {
       <Button
         color="white"
         onClick={() => {
-          getServiceChildren(openCategory);
+          getAllServiceChildren();
           openDrawer();
         }}>
         CHOOSE {CATEGORY_LABELS[openCategory].toUpperCase()} SERVICES
-        {selectedServices[openCategory] && Object.keys(selectedServices[openCategory]).length > 0
+        {selectedServices[openCategory] &&
+        Object.keys(selectedServices[openCategory]).length > 0
           ? ` (${Object.keys(selectedServices[openCategory]).length})`
           : null}
       </Button>
