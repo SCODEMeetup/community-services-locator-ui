@@ -99,7 +99,7 @@ export default class ChooseCategory extends React.Component {
     const id = this.props.openCategory;
 
     if (id && CATEGORY_LABELS[id]) {
-      return CATEGORY_LABELS[id];
+      return CATEGORY_LABELS[id].name;
     }
 
     return '';
