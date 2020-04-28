@@ -88,13 +88,6 @@ export default class ChooseCategory extends React.Component {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  positivePhrase() {
-    const phrases = ['Ok!', 'Awesome!', 'Great!', 'Alrighty!', 'Sweet!'];
-
-    return phrases[randomNumberBetween(0, phrases.length - 1)];
-  }
-
   categoryName() {
     const id = this.props.openCategory;
 
@@ -102,7 +95,7 @@ export default class ChooseCategory extends React.Component {
       return CATEGORY_LABELS[id].name;
     }
 
-    return '';
+    return 'services';
   }
 
   _renderMoreButton() {
@@ -123,7 +116,7 @@ export default class ChooseCategory extends React.Component {
     return (
       <div className="choose-sub-category layout-padding bg-black text-white flex flex-center column">
         <h1 className="text-center">
-          {`${this.positivePhrase()} What type of ${this.categoryName()} would you like to find?`}
+          {`What type of ${this.categoryName()} would you like to find?`}
         </h1>
         <div className="flex column no-wrap">
           {this.subCategories().map(cat => (

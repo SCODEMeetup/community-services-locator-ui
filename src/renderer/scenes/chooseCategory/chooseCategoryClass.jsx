@@ -26,9 +26,7 @@ export default class ChooseCategory extends React.Component {
   render() {
     return (
       <div className="choose-category layout-padding bg-black text-white flex flex-center column">
-        <h1 className="text-center">
-          Hi there! What can I help you find today?
-        </h1>
+        <h1 className="text-center">What can we help you find today?</h1>
         <div className="flex column no-wrap">
           {Object.keys(CATEGORY_LABELS).map(id => (
             <Button
