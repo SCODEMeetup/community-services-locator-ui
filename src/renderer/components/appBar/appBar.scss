@@ -24,40 +24,78 @@
     display: contents;
   }
   .power {
-    align-items: center;
+    align-items: end;
     color: #e0e0e0;
     display: flex;
+    flex-direction: column;
     font-size: 9px;
     flex-grow: 2;
     height: 100%;
-    justify-content: end;
+    justify-content: center;
     .link {
       padding-left: 3px;
       text-decoration: none;
+      display: contents;
     }
   }
 }
 
 @media (max-width: 1000px) {
-  .button {
-    font-size: 12px;
+  .appBar {
+    [class*='theme--button--'] {
+      font-size: 10px !important;
+    }
+    span.-icon.xlg {
+      height: 42px;
+      width: 42px;
+    }
+    .power {
+      font-size: 7px;
+    }
   }
 }
 
 @media (max-width: 800px) {
-  .button {
-    font-size: 10px;
+  .appBar {
+    [class*='theme--button--'] {
+      font-size: 9px !important;
+    }
+    span.-icon.xlg {
+      height: 30px;
+      width: 30px;
+    }
+    .power {
+      font-size: 6px;
+    }
   }
 }
 
 @media (max-width: 660px) {
-  .button {
-    font-size: 8px;
+  .appBar {
+    [class*='theme--button--'] {
+      font-size: 8px !important;
+    }
+    span.-icon.xlg {
+      height: 24px;
+      width: 24px;
+    }
+    .power {
+      font-size: 5px;
+    }
   }
 }
 
 @media (max-width: 400px) {
-  .button {
-    font-size: 6px;
+  .appBar {
+    [class*='theme--button--'] {
+      font-size: 6px !important;
+    }
+    span.-icon.xlg {
+      height: 18px;
+      width: 18px;
+    }
+    .power {
+      font-size: 4px;
+    }
   }
 }

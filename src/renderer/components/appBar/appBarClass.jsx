@@ -86,10 +86,14 @@ export default class CustomAppBar extends React.Component {
         <Icon icon="logo" size="xlg" className="logo" />
         {this.props.openCategory ? this._renderCategories() : null}
         <div className="power">
-          powered by HandsOn Central Ohio data stored in the
+          powered by HandsOn Central Ohio data
           <br />
-          <a className="link" href="https://smartcolumbusos.com">
-            SmartColumbus Operating System
+          stored in the
+          <a
+            title="SmartColumbus Operating System"
+            className="link"
+            href="https://smartcolumbusos.com">
+            {` `} SCOS
           </a>
         </div>
       </AppBar>
