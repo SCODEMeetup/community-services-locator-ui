@@ -1,6 +1,5 @@
 @import '../../../scss/zindex';
 @import '../../../scss/variables';
-
 .appBar {
   background: rgb(0, 0, 0) !important;
   color: rgb(255, 255, 255);
@@ -13,19 +12,29 @@
   transition: height 0.4s;
   width: 100%;
   z-index: $z-navbar;
-
   &.-hide {
     border-bottom: 0;
     height: 0;
     overflow: hidden;
   }
-
   &.-tall {
     height: 16rem;
   }
-
   .logo {
     display: contents;
+  }
+  .power {
+    align-items: center;
+    color: #e0e0e0;
+    display: flex;
+    font-size: 9px;
+    flex-grow: 2;
+    height: 100%;
+    justify-content: end;
+    .link {
+      padding-left: 3px;
+      text-decoration: none;
+    }
   }
 }
 
@@ -34,16 +43,19 @@
     font-size: 12px;
   }
 }
+
 @media (max-width: 800px) {
   .button {
     font-size: 10px;
   }
 }
+
 @media (max-width: 660px) {
   .button {
     font-size: 8px;
   }
 }
+
 @media (max-width: 400px) {
   .button {
     font-size: 6px;

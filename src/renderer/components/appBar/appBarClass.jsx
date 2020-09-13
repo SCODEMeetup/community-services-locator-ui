@@ -51,7 +51,8 @@ export default class CustomAppBar extends React.Component {
           openDrawer();
         }}>
         CHOOSE {CATEGORY_LABELS[openCategory].topBar}
-        {selectedServices[openCategory] && Object.keys(selectedServices[openCategory]).length > 0
+        {selectedServices[openCategory] &&
+        Object.keys(selectedServices[openCategory]).length > 0
           ? ` (${Object.keys(selectedServices[openCategory]).length})`
           : null}
       </Button>
@@ -84,6 +85,13 @@ export default class CustomAppBar extends React.Component {
         ) : null}
         <Icon icon="logo" size="xlg" className="logo" />
         {this.props.openCategory ? this._renderCategories() : null}
+        <div className="power">
+          powered by HandsOn Central Ohio data stored in the
+          <br />
+          <a className="link" href="https://smartcolumbusos.com">
+            SmartColumbus Operating System
+          </a>
+        </div>
       </AppBar>
     );
   }
