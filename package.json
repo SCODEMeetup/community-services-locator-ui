@@ -45,7 +45,7 @@
     "redux-thunk": "^2.3.0",
     "request": "^2.88.0",
     "router5": "^7.0.2",
-    "showdown": "^1.9.0",
+    "showdown": "^1.9.1",
     "throttle-debounce": "^2.0.1",
     "universal-ga": "^1.2.0",
     "webpack": "^4.28.2"
@@ -83,7 +83,7 @@
     "js-yaml": "^3.13.1",
     "lint-staged": "^8.1.0",
     "mocha": "^5.2.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
@@ -104,7 +104,7 @@
     "stylelint-scss": "^3.4.3",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.11.0"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
