@@ -29,7 +29,6 @@ export default class InfoBox extends React.Component {
 
   render() {
     const { details } = this.props;
-    console.log(`details: ${details}`);
     const conversion = addr => replace(/ /g, '+', addr);
     const address = `https://www.google.com/maps/place/${conversion(
       details.address1
