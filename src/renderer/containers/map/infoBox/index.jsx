@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isNil, replace } from 'ramda';
@@ -85,8 +84,7 @@ export default class InfoBox extends React.Component {
               <p>
                 <a
                   href={details.freshtrakData.agencyURL + FRESHTRAK_UTM_PARAMS}
-                  className="number"
-                  // eslint-disable-next-line react/jsx-no-target-blank
+                  className="freshtrak-link"
                   target="_blank"
                   rel="noopener noreferrer">
                   Resource Events for {details.freshtrakData.agencyName}
@@ -100,7 +98,7 @@ export default class InfoBox extends React.Component {
               <p>
                 <a
                   href={details.freshtrakData.zipURL + FRESHTRAK_UTM_PARAMS}
-                  className="number"
+                  className="freshtrak-link"
                   target="_blank"
                   rel="noopener noreferrer">
                   Resource Events for Zip Code {details.zipCode}
