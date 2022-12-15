@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "attr-accept": "^1.1.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "flexbox-react": "^4.4.0",
     "hellojs": "^1.17.1",
     "humanize-plus": "^1.8.2",
